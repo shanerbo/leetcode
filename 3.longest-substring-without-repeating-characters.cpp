@@ -55,23 +55,22 @@ public:
     int lengthOfLongestSubstring(string s)
     {
         std::map<char, int> dict;
-        int len = 0;
         int max = 0;
-        auto start = s.begin();
-        for (auto c = start; c != s.end(); ++c)
+        int p = 0;
+        for (auto i = 0; i < s.length(); i++)
         {
-            if (dict.find(*c) != dict.end())
+            auto c = s[i];
+            auto it = dict.find(c);
+            if (it != dict.end() && it->second >= p)
             {
-                len = 1;
-                c = start++;
-                dict.clear();
+                p = it->second + 1;
             }
             else
             {
-                len++;
+                auto len = i - p + 1;
+                max = std::max(len, max);
             }
-            dict.insert({*c, 0});
-            max = std::max(max, len);
+            dict[c] = i;
         }
         return max;
     }
