@@ -56,20 +56,33 @@ class Solution
 public:
     string convert(string s, int numRows)
     {
-        int distance = numRows * 2 - 2;
-        std::string ret(s);
-        int p = 0;
-        for (int i = 0; i < numRows; i++)
+        string ret;
+        int order = 0, reverse = 0;
+        if (numRows == 0 || numRows == 1)
+            return s;
+        std::vector<std::vector<char>> matrix(numRows);
+        for (int i = 0; i < s.length(); ++i)
         {
-            /* code */
-            ret[p] = s[i];
-            auto curr = i;
-            while (curr <= s.length())
+            matrix[order].push_back(s[i]);
+            if (order != 0 && (order + 1 == numRows || reverse == 1))
             {
-                curr += distance;
-                ret[p++] = s[curr];
+                order--;
+                reverse = 1;
             }
-            distance -= 2;
+            else
+            {
+                order++;
+                reverse = 0;
+            }
         }
+        for (auto const &it : matrix)
+        {
+            for (auto i = it.begin(); i != it.end(); ++i)
+            {
+                ret += *i;
+            }
+        }
+
+        return ret;
     }
 };
