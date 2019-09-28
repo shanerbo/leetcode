@@ -88,14 +88,45 @@ class Solution
 public:
     bool isMatch(string s, string p)
     {
-        int sSize = s.length(), pSize = s.length();
+        int sSize = s.length(), pSize = p.length();
         vector<vector<bool>> dp(sSize + 1, vector<bool>(pSize + 1, false));
         dp[0][0] = true;
         for (int i = 0; i < sSize + 1; i++)
         {
             for (int j = 1; j < pSize + 1; j++)
             {
+                if (p[j - 1] == '*')
+                {
+                    auto noRepeated = dp[i][j - 2];
+                    if (i < 1)
+                    {
+                        dp[i][j] = noRepeated;
+                        continue;
+                    }
+
+                    auto previousResult = dp[i - 1][j];
+                    auto sameChar = s[i - 1] == p[j - 1 - 1];
+                    auto isDot = p[j - 2] == '.';
+                    auto validPrefix = isDot || sameChar;
+                    auto validRegex = validPrefix && previousResult;
+                    dp[i][j] = noRepeated || validRegex;
+                }
+                else
+                {
+                    if (i < 1)
+                    {
+                        dp[i][j] = false;
+                    }
+                    else
+                    {
+                        auto previousResult = dp[i - 1][j - 1];
+                        auto sameChar = p[j - 1] == s[i - 1];
+                        auto isDot = p[j - 1] == '.';
+                        dp[i][j] = previousResult && (sameChar || isDot);
+                    }
+                }
             }
         }
+        return dp[sSize][pSize];
     }
 };
