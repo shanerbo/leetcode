@@ -96,6 +96,19 @@ public:
         {
             if (num / 1000 > 0) // greater than 1000
             {
+                for (int i = 0; i < num / 1000; i++)
+                {
+                    ret += 'M';
+                }
+                num %= 1000; // num = num%1000 1200%1000 = 200
+            }
+            if (num / 500.0 > 1.8) // greater or equal to 900
+            {
+                ret += 'CM';
+            }
+            else if (num / 500 >= 1.2) // greater or equal to 600
+            {
+                /* code */
             }
         }
     }
