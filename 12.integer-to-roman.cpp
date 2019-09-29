@@ -84,32 +84,22 @@ class Solution
 public:
     string intToRoman(int num)
     {
-        std::map<int, string> dict = {
-            {1, "I"},
-            {5, "V"},
-            {10, "X"},
-            {100, "C"},
-            {500, "D"},
-            {1000, "M"}};
-        string ret;
+        std::map<int, std::vector<string>> dict = {
+            {1000, {"", "M", "MM", "MMM"}},
+            {100, {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}},
+            {10, {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}},
+            {1, {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}}};
+        string ret = "";
+        int divider = 1000;
         while (num)
         {
-            if (num / 1000 > 0) // greater than 1000
+            if (num / divider > 0)
             {
-                for (int i = 0; i < num / 1000; i++)
-                {
-                    ret += 'M';
-                }
-                num %= 1000; // num = num%1000 1200%1000 = 200
+                ret += dict[divider][num / divider];
             }
-            if (num / 500.0 > 1.8) // greater or equal to 900
-            {
-                ret += 'CM';
-            }
-            else if (num / 500 >= 1.2) // greater or equal to 600
-            {
-                /* code */
-            }
+            num %= divider;
+            divider /= 10;
         }
+        return ret;
     }
 };
