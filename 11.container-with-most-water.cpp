@@ -50,7 +50,7 @@ public:
         {
             int height = std::min(*l, *r);
             int d = std::distance(l, r);
-            maxArea = height * d;
+            maxArea = std::max(maxArea, height * d);
             while (height >= *l && std::distance(l, r) > 0)
             {
                 l++;
