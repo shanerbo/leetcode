@@ -36,13 +36,33 @@
  */
 class Solution {
    private:
+    string word;
+    void dfs(vector<string>& map, vector<string>& ret, const string& digits,
+             string& word, int position) {
+        if (position == digits.size()) {
+            ret.push_back(word);
+            return;  ////// DO NOT FORGET RETURN IN DFS
+        }
+        int keyNumber = digits[position] - '0';
+        for (int i = 0; i < map[keyNumber].size(); ++i) {
+            word.push_back(map[keyNumber][i]);
+            dfs(map, ret, digits, word, position + 1);
+            word.pop_back();  // need to remove last char for next iteration
+        }
+    }
+
    public:
     vector<string> letterCombinations(string digits) {
+        vector<string> ret;
         if (digits.size() > 0) {
             /* code */
+            vector<string> map({"", "", "abc", "def", "ghi", "jkl", "mno",
+                                "pqrs", "tuv", "wxyz"});
+            dfs(map, ret, digits, word, 0);
+            return ret;
 
         } else {
-            return {""};
+            return ret;
         }
     }
 };
