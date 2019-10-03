@@ -27,34 +27,34 @@
  *
  */
 class Solution {
- public:
-  int threeSumClosest(vector<int> &nums, int target) {
-    if (nums.size() < 3) {
-      return 0;
-    }
-    sort(nums.begin(), nums.end());
-    int diff = target - (nums[0] + nums[1] + nums[2]);
-    for (auto it = nums.begin(); it != nums.end(); ++it) {
-      if (it != nums.begin() && *(it - 1) == *it) {
-        continue;
-      }
-      if (target <= 0 && *it > 0) {
-        break;
-      }
-      auto l = it + 1, r = nums.end() - 1;
-      while (l < r) {
-        int sum = *it + *l + *r;
-        if (sum < target) {
-          l++;
-        } else if (sum > target) {
-          r--;
-        } else if (sum == target) {
-          return target;
+   public:
+    int threeSumClosest(vector<int> &nums, int target) {
+        if (nums.size() < 3) {
+            return 0;
         }
-        int newDiff = target - sum;
-        diff = abs(newDiff) <= abs(diff) ? newDiff : diff;
-      }
+        sort(nums.begin(), nums.end());
+        int diff = target - (nums[0] + nums[1] + nums[2]);
+        for (auto it = nums.begin(); it != nums.end(); ++it) {
+            if (it != nums.begin() && *(it - 1) == *it) {
+                continue;
+            }
+            if (target <= 0 && *it > 0) {
+                break;
+            }
+            auto l = it + 1, r = nums.end() - 1;
+            while (l < r) {
+                int sum = *it + *l + *r;
+                if (sum < target) {
+                    l++;
+                } else if (sum > target) {
+                    r--;
+                } else if (sum == target) {
+                    return target;
+                }
+                int newDiff = target - sum;
+                diff = abs(newDiff) <= abs(diff) ? newDiff : diff;
+            }
+        }
+        return target - diff;
     }
-    return target - diff;
-  }
 };

@@ -47,21 +47,21 @@
  *
  */
 class Solution {
- public:
-  bool isPalindrome(int x) {
-    int newX = 0, tmp = x;
-    if (x < 0) {
-      return false;
-    } else {
-      while (tmp) {
-        if (newX >= INT_MAX / 10) {
-          return false;
-        }
+   public:
+    bool isPalindrome(int x) {
+        int newX = 0, tmp = x;
+        if (x < 0) {
+            return false;
+        } else {
+            while (tmp) {
+                if (newX >= INT_MAX / 10) {
+                    return false;
+                }
 
-        newX = newX * 10 + tmp % 10;
-        tmp /= 10;
-      }
-      return newX == x;
+                newX = newX * 10 + tmp % 10;
+                tmp /= 10;
+            }
+            return newX == x;
+        }
     }
-  }
 };

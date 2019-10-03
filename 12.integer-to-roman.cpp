@@ -80,22 +80,22 @@
  *
  */
 class Solution {
- public:
-  string intToRoman(int num) {
-    std::map<int, std::vector<string>> dict = {
-        {1000, {"", "M", "MM", "MMM"}},
-        {100, {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}},
-        {10, {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}},
-        {1, {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}}};
-    string ret = "";
-    int divider = 1000;
-    while (num) {
-      if (num / divider > 0) {
-        ret += dict[divider][num / divider];
-      }
-      num %= divider;
-      divider /= 10;
+   public:
+    string intToRoman(int num) {
+        std::map<int, std::vector<string>> dict = {
+            {1000, {"", "M", "MM", "MMM"}},
+            {100, {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}},
+            {10, {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"}},
+            {1, {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}}};
+        string ret = "";
+        int divider = 1000;
+        while (num) {
+            if (num / divider > 0) {
+                ret += dict[divider][num / divider];
+            }
+            num %= divider;
+            divider /= 10;
+        }
+        return ret;
     }
-    return ret;
-  }
 };

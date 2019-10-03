@@ -47,21 +47,21 @@
  * };
  */
 class Solution {
- public:
-  ListNode *rotateRight(ListNode *head, int k) {
-    if (!head) {
-      return nullptr;
-    } else {
-      auto len = 1;
-      ListNode *newHead = head, *newTail = head;
-      while (tail->next) {
-        len++;
-        tail = tail->next;
-      }
-      tail->next = head;
-      int rotation = k % len;
-      for (int i = 0; i < rotation; i++) {
-      }
+   public:
+    ListNode *rotateRight(ListNode *head, int k) {
+        if (!head) {
+            return nullptr;
+        } else {
+            auto len = 1;
+            ListNode *newHead = head, *newTail = head;
+            while (tail->next) {
+                len++;
+                tail = tail->next;
+            }
+            tail->next = head;
+            int rotation = k % len;
+            for (int i = 0; i < rotation; i++) {
+            }
+        }
     }
-  }
 };

@@ -50,22 +50,22 @@
  *
  */
 class Solution {
- public:
-  int lengthOfLongestSubstring(string s) {
-    std::map<char, int> dict;
-    int max = 0;
-    int p = 0;
-    for (auto i = 0; i < s.length(); i++) {
-      auto c = s[i];
-      auto it = dict.find(c);
-      if (it != dict.end() && it->second >= p) {
-        p = it->second + 1;
-      } else {
-        auto len = i - p + 1;
-        max = std::max(len, max);
-      }
-      dict[c] = i;
+   public:
+    int lengthOfLongestSubstring(string s) {
+        std::map<char, int> dict;
+        int max = 0;
+        int p = 0;
+        for (auto i = 0; i < s.length(); i++) {
+            auto c = s[i];
+            auto it = dict.find(c);
+            if (it != dict.end() && it->second >= p) {
+                p = it->second + 1;
+            } else {
+                auto len = i - p + 1;
+                max = std::max(len, max);
+            }
+            dict[c] = i;
+        }
+        return max;
     }
-    return max;
-  }
 };

@@ -35,13 +35,14 @@
  *
  */
 class Solution {
- private:
- public:
-  vector<string> letterCombinations(string digits) {
-    if (digits.size() > 0) {
-      /* code */
-    } else {
-      return {""};
+   private:
+   public:
+    vector<string> letterCombinations(string digits) {
+        if (digits.size() > 0) {
+            /* code */
+
+        } else {
+            return {""};
+        }
     }
-  }
 };

@@ -33,29 +33,29 @@
  *
  */
 class Solution {
- public:
-  string longestPalindrome(string s) {
-    int l = 0, r = 0;
-    int maxStart = 0, maxLen = 1;
-    for (int p = 0; p < s.length(); p++) {
-      auto localMaxlen = 1;
-      l = p - 1;
-      r = p + 1;
-      while (r < s.length() && s[r] == s[p]) {
-        localMaxlen++;
-        r++;
-        /* skip same char abbbbbbbba */
-      }
-      while (l >= 0 && r < s.length() && s[l] == s[r]) {
-        localMaxlen += 2;
-        l--;
-        r++;
-      }
-      if (localMaxlen >= maxLen) {
-        maxStart = l + 1;
-        maxLen = localMaxlen;
-      }
+   public:
+    string longestPalindrome(string s) {
+        int l = 0, r = 0;
+        int maxStart = 0, maxLen = 1;
+        for (int p = 0; p < s.length(); p++) {
+            auto localMaxlen = 1;
+            l = p - 1;
+            r = p + 1;
+            while (r < s.length() && s[r] == s[p]) {
+                localMaxlen++;
+                r++;
+                /* skip same char abbbbbbbba */
+            }
+            while (l >= 0 && r < s.length() && s[l] == s[r]) {
+                localMaxlen += 2;
+                l--;
+                r++;
+            }
+            if (localMaxlen >= maxLen) {
+                maxStart = l + 1;
+                maxLen = localMaxlen;
+            }
+        }
+        return s.substr(maxStart, maxLen);
     }
-    return s.substr(maxStart, maxLen);
-  }
 };

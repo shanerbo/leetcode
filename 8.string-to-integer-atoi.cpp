@@ -86,39 +86,39 @@
  *
  */
 class Solution {
- public:
-  int myAtoi(string str) {
-    int mark = 0;
-    while (str[mark] == 32) {
-      mark++;
-      // skip space
-    }
-    double sign = 1;
-    double ret = 0;
-    if (str[mark] == 45) {
-      sign = -1;
-      mark++;
-    } else if (str[mark] == 43) {
-      mark++;
-    }
-    if (str[mark] < 48 || str[mark] > 57) {
-      return 0;
-      // return 0 if the begining of s is not digit
-    }
+   public:
+    int myAtoi(string str) {
+        int mark = 0;
+        while (str[mark] == 32) {
+            mark++;
+            // skip space
+        }
+        double sign = 1;
+        double ret = 0;
+        if (str[mark] == 45) {
+            sign = -1;
+            mark++;
+        } else if (str[mark] == 43) {
+            mark++;
+        }
+        if (str[mark] < 48 || str[mark] > 57) {
+            return 0;
+            // return 0 if the begining of s is not digit
+        }
 
-    for (; mark < str.length(); ++mark) {
-      if (str[mark] <= 57 && str[mark] >= 48) {
-        ret = ret * 10 + str[mark] - 48;
-      } else {
-        break;
-      }
+        for (; mark < str.length(); ++mark) {
+            if (str[mark] <= 57 && str[mark] >= 48) {
+                ret = ret * 10 + str[mark] - 48;
+            } else {
+                break;
+            }
+        }
+        ret = sign * ret;
+        if (ret > INT_MAX) {
+            ret = INT_MAX;
+        } else if (ret < INT_MIN) {
+            ret = INT_MIN;
+        }
+        return ret;
     }
-    ret = sign * ret;
-    if (ret > INT_MAX) {
-      ret = INT_MAX;
-    } else if (ret < INT_MIN) {
-      ret = INT_MIN;
-    }
-    return ret;
-  }
 };

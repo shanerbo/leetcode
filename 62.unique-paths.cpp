@@ -48,20 +48,20 @@
  *
  */
 class Solution {
- public:
-  int uniquePaths(int m, int n) {
-    m--;
-    n--;
-    int total = m + n;
-    int bigger = m >= n ? m : n;
-    double nominator = 1;
-    double denominator = 1;
-    for (int i = total; i > bigger; --i) {
-      nominator *= i;
+   public:
+    int uniquePaths(int m, int n) {
+        m--;
+        n--;
+        int total = m + n;
+        int bigger = m >= n ? m : n;
+        double nominator = 1;
+        double denominator = 1;
+        for (int i = total; i > bigger; --i) {
+            nominator *= i;
+        }
+        for (int i = total - bigger; i > 0; --i) {
+            denominator *= i;
+        }
+        return nominator / denominator * 1;
     }
-    for (int i = total - bigger; i > 0; --i) {
-      denominator *= i;
-    }
-    return nominator / denominator * 1;
-  }
 };

@@ -35,37 +35,37 @@
  *
  */
 class Solution {
- public:
-  vector<vector<int>> threeSum(vector<int> &nums) {
-    sort(nums.begin(), nums.end());  // sort vector
-    set<vector<int>> ret;
-    if (nums.size() < 3) {
-      return {};
-    } else if (*(nums.begin()) > 0) {
-      return {};
-    } else if (*(nums.end() - 1) < 0) {
-      return {};
-    }
-
-    for (auto it = nums.begin(); it != nums.end(); ++it) {
-      auto l = nums.begin();
-      auto r = nums.end() - 1;
-      int twoSum = 0 - *it;
-      while (l < it && it < r) {
-        if (*l + *r > twoSum) {
-          r--;
-        } else if (*l + *r < twoSum) {
-          l++;
-        } else if (*l + *r == twoSum) {
-          auto tmp = {*l, *it, *r};
-          ret.insert(tmp);
-          r--;
-          l++;
+   public:
+    vector<vector<int>> threeSum(vector<int> &nums) {
+        sort(nums.begin(), nums.end());  // sort vector
+        set<vector<int>> ret;
+        if (nums.size() < 3) {
+            return {};
+        } else if (*(nums.begin()) > 0) {
+            return {};
+        } else if (*(nums.end() - 1) < 0) {
+            return {};
         }
-      }
-    }
-    vector<vector<int>> vector(ret.begin(), ret.end());
 
-    return vector;
-  }
+        for (auto it = nums.begin(); it != nums.end(); ++it) {
+            auto l = nums.begin();
+            auto r = nums.end() - 1;
+            int twoSum = 0 - *it;
+            while (l < it && it < r) {
+                if (*l + *r > twoSum) {
+                    r--;
+                } else if (*l + *r < twoSum) {
+                    l++;
+                } else if (*l + *r == twoSum) {
+                    auto tmp = {*l, *it, *r};
+                    ret.insert(tmp);
+                    r--;
+                    l++;
+                }
+            }
+        }
+        vector<vector<int>> vector(ret.begin(), ret.end());
+
+        return vector;
+    }
 };

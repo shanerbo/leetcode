@@ -39,23 +39,23 @@
  *
  */
 class Solution {
- public:
-  int maxArea(vector<int> &height) {
-    int maxArea = 0;
-    auto l = height.begin(), r = height.end() - 1;
+   public:
+    int maxArea(vector<int> &height) {
+        int maxArea = 0;
+        auto l = height.begin(), r = height.end() - 1;
 
-    while (std::distance(l, r) > 0) {
-      int height = std::min(*l, *r);
-      int d = std::distance(l, r);
-      maxArea = std::max(maxArea, height * d);
-      while (height >= *l && std::distance(l, r) > 0) {
-        l++;
-      }
-      while (height >= *r && std::distance(l, r) > 0) {
-        r--;
-      }
+        while (std::distance(l, r) > 0) {
+            int height = std::min(*l, *r);
+            int d = std::distance(l, r);
+            maxArea = std::max(maxArea, height * d);
+            while (height >= *l && std::distance(l, r) > 0) {
+                l++;
+            }
+            while (height >= *r && std::distance(l, r) > 0) {
+                r--;
+            }
+        }
+
+        return maxArea;
     }
-
-    return maxArea;
-  }
 };
