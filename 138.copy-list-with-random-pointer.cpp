@@ -75,18 +75,19 @@ class Solution {
             auto dummyHead = head;
             // set up a hash map
             while (dummyHead) {
-                auto* newNode = new Node(dummyHead->val);
+                Node* newNode = new Node(dummyHead->val);
                 map[dummyHead] = newNode;
                 dummyHead = dummyHead->next;
             }
-            for (auto& node : map) {
-                auto original = node.first;
-                auto copy = node.second;
-                copy->next = map[original->next];
-                copy->random = map[original->random];
-                cout << map.size();
+            auto ret = map[head];
+            while (head) {
+                auto copy = map[head];
+                auto og = head;
+                copy->next = og->next ? map[og->next] : nullptr;
+                copy->random = og->random ? map[og->random] : nullptr;
+                head = head->next;
             }
-            return map.begin()->first;
+            return ret;
         }
     }
 };
