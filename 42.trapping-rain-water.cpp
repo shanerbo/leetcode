@@ -32,24 +32,51 @@
 // @lc code=start
 // approach 1
 // scan from mid
+// class Solution {
+//    public:
+//     int trap(vector<int>& height) {
+//         int ret = 0;
+//         for (auto it = height.begin(); it != height.end(); ++it) {
+//             auto l = height.begin(), r = height.end() - 1;
+//             auto lm = *l, rm = *r;
+//             while (l < it) {
+//                 lm = max(lm, *l);
+//                 l++;
+//             }
+//             while (r > it) {
+//                 rm = max(rm, *r);
+//                 r--;
+//             }
+
+//             auto rain = (min(lm, rm) - *it) >= 0 ? (min(lm, rm) - *it) : 0;
+//             ret += rain;
+//         }
+//         return ret;
+//     }
+// };
+
+// approach 2
+// one pass scan
 class Solution {
    public:
-    int trap(vector<int>& height) {
+    int trap(vector<int> &height) {
+        if (!height.size()) return 0;
+        auto l = height.begin(), r = height.end() - 1;
+        auto lm = *l, rm = *r;
         int ret = 0;
-        for (auto it = height.begin(); it != height.end(); ++it) {
-            auto l = height.begin(), r = height.end() - 1;
-            auto lm = *l, rm = *r;
-            while (l < it) {
+        auto rain = 0;
+        while (l <= r) {
+            if (*l < *r) {
                 lm = max(lm, *l);
-                l++;
-            }
-            while (r > it) {
+                rain = lm - *l++;
+                ret += rain;
+                // l++;
+            } else {
                 rm = max(rm, *r);
-                r--;
+                rain = rm - *r--;
+                ret += rain;
+                // r--;
             }
-
-            auto rain = (min(lm, rm) - *it) >= 0 ? (min(lm, rm) - *it) : 0;
-            ret += rain;
         }
         return ret;
     }
