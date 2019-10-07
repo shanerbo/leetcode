@@ -15,12 +15,12 @@
  *
  * Given a set of distinct integers, nums, return all possible subsets (the
  * power set).
- * 
+ *
  * Note: The solution set must not contain duplicate subsets.
- * 
+ *
  * Example:
- * 
- * 
+ *
+ *
  * Input: nums = [1,2,3]
  * Output:
  * [
@@ -33,15 +33,23 @@
  * [1,2],
  * []
  * ]
- * 
+ *
  */
 
 // @lc code=start
 class Solution {
-public:
+   public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        
+        vector<vector<int>> ret = {{}};  // empty set is a subset;
+        for (auto& num : nums) {
+            int subSetSize = ret.size();
+            for (int i = 0; i < subSetSize; ++i) {
+                auto newSubSet = ret[i];
+                newSubSet.push_back(num);
+                ret.push_back(newSubSet);
+            }
+        }
+        return ret;
     }
 };
 // @lc code=end
-
