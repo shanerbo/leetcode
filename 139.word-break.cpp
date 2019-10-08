@@ -55,23 +55,47 @@
 
 // @lc code=start
 class Solution {
+  private:
+    int maxSubString = 0;
+
+    unordered_map<string, bool> wordDictDict;
+    unordered_map<string, bool> dp;
+    bool dfs(string s) {
+        if (dp.find(s) != dp.end()) {
+            return dp[s];
+        }
+
+        if (s.empty()) {
+            return true;
+        }
+        if (wordDictDict.find(s) != wordDictDict.end()) {
+            return true;
+        } else {
+            bool found = false;
+            for (int i = 1; i <= maxSubString && !found; ++i) {
+                auto left = s.substr(0, i);
+                if (wordDictDict.find(left) != wordDictDict.end()) {
+                    found |= dfs(s.substr(i));
+                }
+            }
+            dp[s] = found;
+            return found;
+        }
+    }
+
   public:
     bool wordBreak(string s, vector<string> &wordDict) {
-        unordered_map<string, int> wordDictDict;
         if (wordDict.size() < 1 || s.length() < 1) {
             return false;
         }
-
-        int maxSubString = 0;
-        int minSubString = 0;
-
         int len = 0;
         for (auto &word : wordDict) {
             len = word.length();
-            wordDictDict[word] = len;
+            wordDictDict[word] = true;
             maxSubString = max(len, maxSubString);
-            minSubString = max(len, minSubString);
         }
-        }
+
+        return dfs(s);
+    }
 };
 // @lc code=end
