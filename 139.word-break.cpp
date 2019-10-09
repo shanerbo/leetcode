@@ -119,14 +119,11 @@ class Solution {
 
   public:
     bool wordBreak(string s, vector<string> &wordDict) {
-<<<<<<< HEAD
-=======
         int maxSubString = 0;
         int minSubString = INT_MAX;
 
         unordered_map<string, bool> wordDictDict;
         vector<bool> dp(s.length() + 1, false);
->>>>>>> 951092b99eb2bafee822978fa5386e7a1c0d4c4e
         if (wordDict.size() < 1 || s.length() < 1) {
             return false;
         }
@@ -135,10 +132,6 @@ class Solution {
             len = word.length();
             wordDictDict[word] = true;
             maxSubString = max(len, maxSubString);
-<<<<<<< HEAD
-        }
-        return dfs(s);
-=======
             minSubString = min(minSubString, len);
         }
         dp[0] = true;
@@ -151,7 +144,6 @@ class Solution {
         }
 
         return dp[s.length()];
->>>>>>> 951092b99eb2bafee822978fa5386e7a1c0d4c4e
     }
 };
 // @lc code=end
