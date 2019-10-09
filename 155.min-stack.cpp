@@ -47,32 +47,24 @@ class MinStack {
   private:
     vector<int> _stack; // even though there is stack type.
     vector<int> _min;
-    int _min;
 
   public:
     /** initialize your data structure here. */
     MinStack() {
-        this->setMin(INT_MAX);
-    }
-
-    void setMin(int x) {
-        this->_min = x;
     }
 
     void push(int x) {
         this->_stack.push_back(x);
-        if (_min.back() >= x) {
+        if (_min.size() == 0 || _min.back() >= x) {
             _min.push_back(x);
         }
     }
 
     void pop() {
-        if (this->top == _min.back()) {
-            _stack.pop_back();
+        if (this->top() == this->getMin()) {
             _min.pop_back();
-        } else {
-            _stack.pop_back();
         }
+        _stack.pop_back();
     }
 
     int top() {
