@@ -36,17 +36,31 @@
  */
 
 // @lc code=start
+// class Solution {
+//   public:
+//     int missingNumber(vector<int> &nums) {
+//         int sum = 0;
+//         if (nums.size() < 1)
+//             return 0;
+//         for (auto &num : nums) {
+//             sum += num;
+//         }
+//         int realSum = (nums.size()) * (nums.size() + 1) / 2;
+//         return realSum - sum;
+//     }
+// };
+/*
+Method 2
+*/
 class Solution {
   public:
     int missingNumber(vector<int> &nums) {
-        int sum = 0;
-        if (nums.size() < 1)
-            return 0;
-        for (auto &num : nums) {
-            sum += num;
+        nums.push_back(0);
+        int ret = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            ret += (i - nums[i]);
         }
-        int realSum = (nums.size()) * (nums.size() + 1) / 2;
-        return realSum - sum;
+        return ret;
     }
 };
 // @lc code=end
