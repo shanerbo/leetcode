@@ -41,37 +41,63 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+// class Solution {
+//   public:
+//     bool isPalindrome(ListNode *head) {
+//         // find mid of the linked list using fast-slow pointer fast moves two step, slow moves one step
+//         auto *fast = head, *slow = head;
+//         while (fast && fast->next) { // fast->next is valid aka fast->next->null is the last checkpoint
+//             slow = slow->next;
+//             fast = fast->next->next;
+//         }
+//         if (fast) {
+//             slow = slow->next; // if the length is odd move forward one step;
+//         }
+
+//         // reverse linked list
+//         ListNode *prev = nullptr, *curr = slow;
+//         while (curr) {
+//             ListNode *next = nullptr;
+//             next = curr->next;
+//             curr->next = prev;
+//             prev = curr;
+//             curr = next;
+//         }
+//         while (prev) {
+//             if (prev->val != head->val) {
+//                 return false;
+//             } else {
+//                 prev = prev->next;
+//                 head = head->next;
+//             }
+//         }
+//         return true;
+//     }
+// };
+/* 
+Method 2 Recurssion is too slow but it is worth trying;
+*/
+
 class Solution {
+  private:
+    ListNode *_node = nullptr;
+    bool travel(ListNode *node) {
+        if (!node) {
+            return true;
+        } else {
+            auto isEqual = travel(node->next) && node->val == _node->val;
+            _node = _node->next;
+            return isEqual;
+        }
+    }
+
   public:
     bool isPalindrome(ListNode *head) {
-        // find mid of the linked list using fast-slow pointer fast moves two step, slow moves one step
-        auto *fast = head, *slow = head;
-        while (fast && fast->next) { // fast->next is valid aka fast->next->null is the last checkpoint
-            slow = slow->next;
-            fast = fast->next->next;
+        if (!head) {
+            return true;
         }
-        if (fast) {
-            slow = slow->next; // if the length is odd move forward one step;
-        }
-
-        // reverse linked list
-        ListNode *prev = nullptr, *curr = slow;
-        while (curr) {
-            ListNode *next = nullptr;
-            next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
-        }
-        while (prev) {
-            if (prev->val != head->val) {
-                return false;
-            } else {
-                prev = prev->next;
-                head = head->next;
-            }
-        }
-        return true;
+        _node = head;
+        return travel(head);
     }
 };
 // @lc code=end
