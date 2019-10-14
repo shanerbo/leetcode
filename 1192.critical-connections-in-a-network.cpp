@@ -53,7 +53,7 @@ class Solution {
     typedef unordered_map<int, vector<int>> Graph;
     vector<vector<int>> ret;
     int time = 0;
-    void dfs(Graph &graph, vector<int> &low, vector<int> &disc, vector<bool> visited, vector<int> parent, int from) {
+    void dfs(Graph &graph, vector<int> &low, vector<int> &disc, vector<bool> &visited, vector<int> &parent, int from) {
         ++time;
         low[from] = time;
         disc[from] = time;
