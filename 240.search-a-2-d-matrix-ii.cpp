@@ -50,7 +50,6 @@ class Solution {
         } else {
             int j = matrix[0].size() - 1;
             for (int i = 0; i < matrix.size(); ++i) {
-                // cout << i << endl;
                 for (; j >= 0; --j) { // this row may contain target;
                     if (matrix[i][j] == target) {
                         return true;
