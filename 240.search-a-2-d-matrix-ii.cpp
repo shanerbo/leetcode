@@ -45,6 +45,30 @@
 class Solution {
   public:
     bool searchMatrix(vector<vector<int>> &matrix, int target) {
+        if (matrix.size() < 1) {
+            return false;
+        } else {
+            int i = matrix.size();
+            int j = matrix[0].size();
+            for (int i = 0; i < matrix.size(); ++i) {
+                // cout << i << endl;
+                int j = matrix[0].size() - 1;
+                for (; j >= 0; --j) {
+                    if (matrix[i].back() < target) { // the last element smaller than target no need to search this row
+                        break;
+                    } else { // this row may contain target;
+                        if (matrix[i][j] == target) {
+                            return true;
+                        } else if (matrix[i][j] > target) {
+                            continue;
+                        } else if (matrix[i][j] < target) {
+                            break;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 };
 // @lc code=end
