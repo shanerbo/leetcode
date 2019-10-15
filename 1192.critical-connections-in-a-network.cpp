@@ -61,8 +61,9 @@ class Solution {
         for (auto &to : graph[from]) {
             if (!visited[to]) { // if the vertex has been visited, skip it;
                 parent[to] = from;
+                visited[to] = true;
                 dfs(graph, low, disc, visited, parent, to);
-                low[from] = min(low[from], low[to]); // low[to] will become smaller if there is a cycle;
+                low[from] = min(low[to], low[from]);
                 if (low[to] > disc[from]) {
                     if (to > from) {
                         ret.push_back({from, to});
@@ -72,7 +73,7 @@ class Solution {
                 }
             } else {
                 if (parent[from] != to) {
-                    low[from] = min(disc[to], low[from]);
+                    low[from] = min(low[from], disc[to]);
                 }
             }
         }
