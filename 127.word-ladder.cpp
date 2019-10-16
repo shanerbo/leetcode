@@ -103,9 +103,16 @@ class Solution {
                     return ret;
                 } else {
                     dict.erase(word); // remove this word from dictionary
-                    for (auto &word2 : dict) {
-                        if (validString(word, word2)) {
-                            toSearch.push_back(word2);
+                    int wordLen = word.length();
+                    string tempWord;
+                    for (int j = 0; j < wordLen; ++j) {
+                        tempWord = word;
+                        for (char c = 'a'; c <= 'z'; c++) {
+                            tempWord[j] = c;
+                            // cout << tempWord << endl;
+                            if (dict.find(tempWord) != dict.end()) {
+                                toSearch.push_back(tempWord);
+                            }
                         }
                     }
                 }
