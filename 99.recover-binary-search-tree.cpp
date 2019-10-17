@@ -76,7 +76,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution0 {
   private:
     void dfs(TreeNode *root, TreeNode *&pre, TreeNode *&first, TreeNode *&second) {
         if (!root) {
@@ -103,6 +103,40 @@ class Solution {
             dfs(root, pre, first, second);
             if (first)
                 swap(first->val, second->val);
+        }
+    }
+};
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+  private:
+    vector<int> order;
+    vector<TreeNode *> list;
+    void inorder(TreeNode *root) {
+        if (root == nullptr) {
+            return;
+        } else {
+            inorder(root->left);
+            order.push_back(root->val);
+            list.push_back(root);
+            inorder(root->right);
+        }
+    }
+
+  public:
+    void
+    recoverTree(TreeNode *root) {
+        inorder(root);
+        sort(order.begin(), order.end());
+        for (int i = 0; i < list.size(); ++i) {
+            list[i]->val = order[i];
         }
     }
 };
