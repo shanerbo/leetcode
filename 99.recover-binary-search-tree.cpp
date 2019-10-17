@@ -115,7 +115,7 @@ class Solution0 {
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution1 {
   private:
     vector<int> order;
     vector<TreeNode *> list;
@@ -138,6 +138,54 @@ class Solution {
         for (int i = 0; i < list.size(); ++i) {
             list[i]->val = order[i];
         }
+    }
+};
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+  public:
+    void recoverTree(TreeNode *root) {
+        TreeNode *first = nullptr, *second = nullptr, *pre = nullptr, *preNode = nullptr;
+        while (root) {
+            if (!root->left) {
+                if (pre && pre->val > root->val) {
+                    if (!first) {
+                        first = pre;
+                    }
+                    second = root;
+                }
+                pre = root;
+                root = root->right;
+            } else {
+                preNode = root->left;
+                while (preNode->right && preNode->right != root) {
+                    preNode = preNode->right;
+                }
+                if (preNode->right == nullptr) {
+                    preNode->right = root;
+                    root = root->left; // very important, since this is inorder traversal, once preNode->right is null
+                    // you need to move root to its left child which does not have right child
+                } else {
+                    preNode->right = nullptr; // disconnet
+                    if (pre && pre->val > root->val) {
+                        if (!first) {
+                            first = pre;
+                        }
+                        second = root;
+                    }
+                    pre = root;
+                    root = root->right;
+                }
+            }
+        }
+        swap(first->val, second->val);
     }
 };
 // @lc code=end
