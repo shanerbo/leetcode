@@ -45,10 +45,28 @@
 
 // @lc code=start
 class Solution {
-public:
-    int climbStairs(int n) {
-        
+  private:
+    int res = 0;
+    void dfs(int rest) {
+        if (rest == 0) {
+            res++;
+        }
+        if (rest < 0) {
+            return;
+        }
+
+        dfs(rest - 1);
+        dfs(rest - 2);
+    }
+
+  public:
+    int climbStairs(int n) { // test it you will find this is fibonacci series
+        if (n < 1) {
+            return res;
+        } else {
+            dfs(n);
+        }
+        return res;
     }
 };
 // @lc code=end
-
