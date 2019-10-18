@@ -45,10 +45,23 @@
 
 // @lc code=start
 class Solution {
-public:
-    int firstMissingPositive(vector<int>& nums) {
-        
+  public:
+    int firstMissingPositive(vector<int> &nums) {
+        int size = nums.size();
+
+        for (int i = 0; i < size; ++i) {
+            /*the key idea is that for any trival list, it must contain 1...k(k=nums.size()) digit. put each number     *into correspoing position.
+            */
+            while (nums[i] > 0 && nums[i] <= size && nums[i] != nums[nums[i] - 1]) {
+                swap(nums[i], nums[nums[i] - 1]);
+            }
+        }
+        for (int i = 0; i < size; i++) {
+            if (i + 1 != nums[i]) {
+                return i + 1;
+            }
+        }
+        return size + 1;
     }
 };
 // @lc code=end
-
