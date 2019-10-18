@@ -94,7 +94,26 @@
 class Solution {
   public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        return nullptr;
+        ListNode *res = nullptr;
+        if (!headA || !headB) {
+            return res;
+        } else {
+            ListNode *a = headA, *b = headB;
+            while (a != b) {
+                if (!a) {
+                    a = headB;
+                } else {
+                    a = a->next;
+                }
+
+                if (!b) {
+                    b = headA;
+                } else {
+                    b = b->next;
+                }
+            }
+            return a;
+        }
     }
 };
 // @lc code=end
