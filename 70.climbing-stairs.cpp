@@ -45,28 +45,42 @@
 
 // @lc code=start
 class Solution {
-  private:
-    int res = 0;
-    void dfs(int rest) {
-        if (rest == 0) {
-            res++;
-        }
-        if (rest < 0) {
-            return;
-        }
+    //   private:
+    //     int res = 0;
+    //     void dfs(int rest) {
+    //         if (rest == 0) {
+    //             res++;
+    //         }
+    //         if (rest < 0) {
+    //             return;
+    //         }
 
-        dfs(rest - 1);
-        dfs(rest - 2);
-    }
+    //         dfs(rest - 1);
+    //         dfs(rest - 2);
+    //     }
 
   public:
     int climbStairs(int n) { // test it you will find this is fibonacci series
+        // if (n < 1) {
+        //     return res;
+        // } else {
+        //     dfs(n);
+        // }
+        // return res;
+        int fib1 = 0;
+        int fib2 = 1;
         if (n < 1) {
-            return res;
-        } else {
-            dfs(n);
+            return fib1;
+        } else if (n < 2) {
+            return fib2;
         }
-        return res;
+        int fib3;
+        for (int i = 0; i < n; i++) {
+            fib3 = fib1 + fib2;
+            fib1 = fib2;
+            fib2 = fib3;
+        }
+        return fib3;
     }
 };
 // @lc code=end
