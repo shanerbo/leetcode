@@ -67,8 +67,9 @@ class Solution {
     string reverseWords(string s) {
         if (s.length() < 1)
             return "";
+        s += ' ';
         stack<string> stack;
-        string tmp;
+        string res;
         int j = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s[i] == ' ') {
@@ -76,8 +77,7 @@ class Solution {
             } else {
                 for (j = i; j < s.length(); j++) {
                     if (s[j] == ' ') {
-                        cout << s.substr(i, j) << endl;
-                        stack.push(s.substr(i, j));
+                        stack.push(s.substr(i, j - i));
                         i = j;
                         break;
                     }
@@ -86,7 +86,16 @@ class Solution {
             }
         }
 
-        return "";
+        int stackSize = stack.size();
+        if (stackSize == 0) {
+            return "";
+        }
+
+        for (int i = 0; i < stackSize; ++i) {
+            res = res + ' ' + stack.top();
+            stack.pop();
+        }
+        return res.substr(1);
     }
 };
 // @lc code=end
