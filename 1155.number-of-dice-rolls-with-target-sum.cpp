@@ -76,7 +76,7 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution1 {
   private:
     unordered_map<string, int> map;
     int mod = 1000000000 + 7;
@@ -104,6 +104,28 @@ class Solution {
         }
         map[mark] = way;
         return way;
+    }
+};
+class Solution { //dp
+  public:
+    int mod = 1000000000 + 7;
+
+    int numRollsToTarget(int d, int f, int target) {
+        vector<vector<int>> dp(d + 1, vector<int>(target + 1, 0));
+        dp[0][0] = 1; // 0 dice 0 target is valid;
+        for (int i = 1; i <= d; ++i) {
+            for (int j = 1; j <= target; ++j) {
+                if (d * f < j) {
+                    break;
+                }
+                for (int k = 1; k <= min(j, f); k++) // sum of previous nombers;
+                {
+                    dp[i][j] = (dp[i][j] + dp[i - 1][j - k]) % mod;
+                }
+            }
+        }
+
+        return dp[d][target];
     }
 };
 // @lc code=end
