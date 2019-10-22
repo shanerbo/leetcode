@@ -33,7 +33,7 @@
  *
  */
 class Solution {
-   public:
+  public:
     string longestPalindrome(string s) {
         int l = 0, r = 0;
         int maxStart = 0, maxLen = 1;

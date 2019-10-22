@@ -6,11 +6,11 @@
  * https://leetcode.com/problems/first-missing-positive/description/
  *
  * algorithms
- * Hard (29.92%)
- * Likes:    2186
- * Dislikes: 655
- * Total Accepted:    251.2K
- * Total Submissions: 838.3K
+ * Hard (29.96%)
+ * Likes:    2187
+ * Dislikes: 656
+ * Total Accepted:    251.3K
+ * Total Submissions: 838.4K
  * Testcase Example:  '[1,2,0]'
  *
  * Given an unsorted integer array, find the smallest missing positive
@@ -47,6 +47,21 @@
 class Solution {
   public:
     int firstMissingPositive(vector<int> &nums) {
+        int size = nums.size();
+
+        for (int i = 0; i < size; ++i) {
+            /*the key idea is that for any trival list, it must contain 1...k(k=nums.size()) digit. put each number     *into correspoing position.
+            */
+            while (nums[i] > 0 && nums[i] <= size && nums[i] != nums[nums[i] - 1]) {
+                swap(nums[i], nums[nums[i] - 1]);
+            }
+        }
+        for (int i = 0; i < size; i++) {
+            if (i + 1 != nums[i]) {
+                return i + 1;
+            }
+        }
+        return size + 1;
     }
 };
 // @lc code=end

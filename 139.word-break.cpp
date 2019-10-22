@@ -135,9 +135,9 @@ class Solution {
             minSubString = min(minSubString, len);
         }
         dp[0] = true;
-        for (int i = 0; i <= s.length(); ++i) {
-            for (int j = i; j >= 0 && i - 2 * j <= maxSubString; --j) {
-                if (dp[j] && wordDictDict[s.substr(j, i - j)]) {
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = i; j >= 0 && i - j <= maxSubString; --j) {
+                if (dp[j] && wordDictDict.find(s.substr(j, i - j)) != wordDictDict.end()) {
                     dp[i] = true;
                 }
             }

@@ -74,25 +74,37 @@
  */
 class Solution {
   private:
-    bool isValid(TreeNode *s, TreeNode *t) {
+    bool validSubtree(TreeNode *s, TreeNode *t) {
         if (!s && !t) {
             return true;
-        } else if (!t || !s) {
+        }
+        if (!s || !t) {
             return false;
         } else {
-            return s->val == t->val && isValid(s->left, t->left) && isValid(s->right, t->right);
+            if (s->val == t->val) {
+                if (validSubtree(s->left, t->left) && validSubtree(s->right, t->right)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
   public:
     bool isSubtree(TreeNode *s, TreeNode *t) {
-        if (!s) {
+        if (!t || !s) {
             return false;
-        } else if (!t) {
-            return true;
-        } else {
-            return isValid(s, t) || isSubtree(s->left, t) || isSubtree(s->right, t);
         }
+        if (validSubtree(s, t)) {
+            return true;
+        }
+        if (isSubtree(s->left, t)) {
+            return true;
+        }
+        if (isSubtree(s->right, t)) {
+            return true;
+        }
+        return false;
     }
 };
 // @lc code=end

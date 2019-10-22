@@ -37,11 +37,11 @@
  */
 
 // @lc code=start
-class Solution {
-   public:
-    vector<vector<int>> subsets(vector<int>& nums) {
-        vector<vector<int>> ret = {{}};  // empty set is a subset;
-        for (auto& num : nums) {
+class Solution1 {
+  public:
+    vector<vector<int>> subsets(vector<int> &nums) {
+        vector<vector<int>> ret = {{}}; // empty set is a subset;
+        for (auto &num : nums) {
             int subSetSize = ret.size();
             for (int i = 0; i < subSetSize; ++i) {
                 auto newSubSet = ret[i];
@@ -50,6 +50,25 @@ class Solution {
             }
         }
         return ret;
+    }
+};
+class Solution {
+    void dfs(vector<int> &nums, int position, vector<int> &sub, vector<vector<int>> &subs) {
+        subs.push_back(sub);
+        for (int i = position; i < nums.size(); i++) {
+            /* code */
+            sub.push_back(nums[i]);
+            dfs(nums, i + 1, sub, subs);
+            sub.pop_back();
+        }
+    }
+
+  public:
+    vector<vector<int>> subsets(vector<int> &nums) {
+        vector<int> sub;
+        vector<vector<int>> subs;
+        dfs(nums, 0, sub, subs);
+        return subs;
     }
 };
 // @lc code=end
