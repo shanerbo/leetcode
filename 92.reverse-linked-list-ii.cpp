@@ -39,9 +39,13 @@ class Solution {
   public:
     ListNode *reverseBetween(ListNode *head, int M, int N) {
         ListNode **m = &head;
-        ListNode **n = &head;
         for (int i = 1; i < M; i++) {
             m = &(*m)->next;
+        }
+        ListNode **mn = &(*m)->next;
+        for (int i = M; i < N; i++) {
+            swap(*m, (*mn)->next);
+            swap(*m, *mn);
         }
 
         return head;
