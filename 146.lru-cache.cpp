@@ -52,25 +52,43 @@
 class LRUCache {
   private:
     int timer;
-    unordered_map<int, Record *> db;
-    class Record {
-      private:
-        int key;
-        int value;
-        int time;
-
-      public:
-        Record(int _key, int _value, int _time) : key(_key), value(_value), time(_time) {}
-    };
+    unordered_map<int, list<pair<int, int>>::iterator> db;
+    list<pair<int, int>> queue;
+    int curSize, capacity;
 
   public:
     LRUCache(int capacity) {
-        }
+        curSize = 0;
+        this->capacity = capacity;
+    }
 
     int get(int key) {
+        if (db.find(key) != db.end()) {
+            auto it = db[key];
+            queue.push_front(make_pair(key, it->second));
+            queue.erase(it);
+            db[key] = queue.begin();
+            return queue.begin()->second;
+        } else {
+            return -1;
+        }
     }
 
     void put(int key, int value) {
+        if (db.find(key) != db.end()) {
+            queue.erase(db[key]);
+            curSize--;
+        }
+        queue.push_front(make_pair(key, value));
+        auto it = queue.begin();
+        db[key] = it;
+        curSize++;
+        if (curSize > capacity) {
+            int lastKey = queue.back().first;
+            db.erase(lastKey);
+            queue.pop_back();
+            curSize--;
+        }
     }
 };
 
