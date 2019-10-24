@@ -38,7 +38,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
+class Solution1 {
   public:
     ListNode *reverseList(ListNode *head) {
         if (!head) {
@@ -52,6 +52,23 @@ class Solution {
                 head = next;
             }
             return prev;
+        }
+    }
+};
+class Solution {
+  public:
+    ListNode *reverseList(ListNode *head) {
+        if (!head) {
+            return nullptr;
+        } else {
+            ListNode **prev = &head;
+            ListNode **pivot = &(*prev)->next;
+            while (*pivot) {
+                swap(*prev, (*pivot)->next);
+                swap(*prev, *pivot);
+            }
+
+            return head;
         }
     }
 };

@@ -52,28 +52,44 @@
  *
  */
 class Solution {
-   public:
+  public:
     string convert(string s, int numRows) {
-        string ret;
-        int order = 0, reverse = 0;
-        if (numRows == 0 || numRows == 1) return s;
-        std::vector<std::vector<char>> matrix(numRows);
-        for (int i = 0; i < s.length(); ++i) {
-            matrix[order].push_back(s[i]);
-            if (order != 0 && (order + 1 == numRows || reverse == 1)) {
-                order--;
-                reverse = 1;
+        string res;
+        if (numRows < 2) {
+            return s;
+        }
+        int totalJump = 2 * numRows - 2;
+        int gap = numRows - 1;
+        for (int i = 0; i < numRows; i++) {
+            int loc = i;
+            int firstGap = (gap - i) * 2;
+            int secondGap;
+            if (firstGap == totalJump) {
+                secondGap = firstGap;
+            } else if (firstGap == 0) {
+                firstGap = totalJump;
+                secondGap = totalJump;
             } else {
-                order++;
-                reverse = 0;
+                secondGap = totalJump - firstGap;
             }
-        }
-        for (auto const &it : matrix) {
-            for (auto i = it.begin(); i != it.end(); ++i) {
-                ret += *i;
-            }
-        }
+            res += s[loc];
 
-        return ret;
+            while (loc < s.length()) {
+                loc += firstGap;
+                if (loc < s.length()) {
+                    res += s[loc];
+                } else {
+                    break;
+                }
+                loc += secondGap;
+
+                if (loc < s.length()) {
+                    res += s[loc];
+                } else {
+                    break;
+                }
+            }
+        }
+        return res;
     }
 };
