@@ -62,7 +62,7 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution1 {
   public:
     TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
         if (!root || root->val == p->val || root->val == q->val) {
@@ -77,6 +77,21 @@ class Solution {
             return r;
         } else {
             return l;
+        }
+    }
+};
+class Solution {
+  public:
+    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
+        int _max = max(p->val, q->val);
+        int _min = min(p->val, q->val);
+        if (root->val > _max) {
+            return lowestCommonAncestor(root->left, p, q);
+        }
+        if (root->val < _min) {
+            return lowestCommonAncestor(root->right, p, q);
+        } else {
+            return root;
         }
     }
 };
