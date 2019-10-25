@@ -61,9 +61,7 @@ class Solution {
                     queue.push_back(queue[i]->right);
                 }
             }
-            for (int i = 0; i < queSize; i++) {
-                queue.pop_front();
-            }
+            queue.erase(queue.begin(), queue.begin() + queSize);
         }
         return res;
     }
