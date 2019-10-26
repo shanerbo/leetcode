@@ -40,15 +40,25 @@
 class Solution {
   public:
     vector<int> twoSum(vector<int> &numbers, int target) {
-        vector<int> ret;
+        vector<int> res(1, -1);
         if (numbers.size() < 1) {
-            return ret;
-        } else {
-            unordered<int, int> map;
-            for (int i = 0; i < numbers.size(); i++) {
-                /* code */
+            return res;
+        }
+        unordered_map<int, int> map;
+        for (int i = 0; i < numbers.size(); i++) {
+            int subTarget = target - numbers[i];
+
+            if (map.find(numbers[i]) != map.end()) {
+                if (i > map[numbers[i]]) {
+                    return {map[numbers[i]] + 1, i + 1};
+                } else {
+                    return {i + 1, map[numbers[i]] + 1};
+                }
+            } else {
+                map[subTarget] = i;
             }
         }
+        return res;
     }
 };
 // @lc code=end
