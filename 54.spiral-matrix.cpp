@@ -42,10 +42,74 @@
 
 // @lc code=start
 class Solution {
-public:
-    vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        
+  public:
+    vector<int> spiralOrder(vector<vector<int>> &matrix) {
+        vector<int> res;
+
+        if (matrix.size() == 0) {
+            return res;
+        }
+        int width = matrix[0].size();
+        int height = matrix.size();
+        int total = width * height;
+        char direction = 'r';
+        int row = 0, col = 0;
+        while (total > 0) {
+            switch (direction) {
+            case 'r': {
+                direction = 'd';
+                int tmpWidth = width;
+                while (tmpWidth-- > 0) {
+                    res.push_back(matrix[row][col++]);
+                    total--;
+                }
+                col--;
+                row++;
+                height--;
+                break;
+            }
+            case 'd': {
+                direction = 'l';
+                int tmpHeight = height;
+                while (tmpHeight-- > 0) {
+                    res.push_back(matrix[row++][col]);
+                    total--;
+                }
+                row--;
+                col--;
+                width--;
+                break;
+            }
+            case 'l': {
+                direction = 'u';
+                int tempWidth = width;
+                while (tempWidth-- > 0) {
+                    res.push_back(matrix[row][col--]);
+                    total--;
+                }
+                col++;
+                row--;
+                height--;
+                break;
+            }
+            case 'u': {
+                direction = 'r';
+                int tempHeight = height;
+                while (tempHeight-- > 0) {
+                    res.push_back(matrix[row--][col]);
+                    total--;
+                }
+                row++;
+                col++;
+                width--;
+                break;
+            }
+
+            default:
+                break;
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
-
