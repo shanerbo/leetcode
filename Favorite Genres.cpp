@@ -1,25 +1,22 @@
 class solution {
   public:
-    unordered_map<string, vector<string>> songAndGenra(unordered_map<string, vector<string>> userSongs, unordered_map<string, vector<string>> songGenres) {
-        unordered_map<string, vector<string>> ret;
-        unorded_map<string, string> songGenres;
-        if (songGenres.size() < 1) {
-            return ret;
-        }
-
-        for (auto &genre : songGenres) {
-            for (auto &song : genre.second) {
+    unordered_map<string, set<string>> songAndGenra(unordered_map<string, vector<string>> userSongs, unordered_map<string, vector<string>> genres) {
+        unordered_map<string, string> songGenres;
+        unordered_map<string, set<string>> res;
+        for (auto const &genre : genres) {
+            for (auto const &song : genre.second) {
                 songGenres[song] = genre.first;
             }
         }
-        auto genre = [](string song) { return songGenres[song]; };
-        auto cmp = [](string genre1, string genre2) { return genre1 < genre2; };
-        for (auto &userSong : user) {
-            for_each(userSong.second.begin(), userSong.second.end(), genre);
-            sort(userSong.second.begin(), userSong.second.end(), cmp);
-        } // Erbo: xx, xx, xx, xx list is sorted
-        unordered_map<string, unordered_map<string, int>> userGenres;
-
-        for
+        for (auto const &user : userSongs) {
+            for (auto const &song : user.second) {
+                if (songGenres.find(song) == songGenres.end()) {
+                    res[user.first].insert("Unknown Type");
+                } else {
+                    res[user.first].insert(songGenres[song]);
+                }
+            }
+        }
+        return res;
     }
 };
