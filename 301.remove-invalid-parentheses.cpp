@@ -42,61 +42,6 @@
  */
 
 // @lc code=start
-class Solution1 {
-
-  private:
-    bool check(string &s) {
-        int count = 0;
-        for (auto const &c : s) {
-            if (c == '(') {
-                count++;
-            }
-            if (c == ')' && count-- == 0) { // no '('
-                return false;
-            }
-        }
-        return count == 0;
-    };
-
-  public:
-    vector<string> removeInvalidParentheses(string s) {
-        vector<string> res;
-        set<string> visited;
-        // sanity check
-        if (s.length() < 0) {
-            return res;
-        }
-        queue<string> q;
-        q.push(s);
-        bool found = false;
-        while (q.size() > 0) {
-            s = q.front();
-            q.pop();
-            if (check(s)) {
-                res.push_back(s);
-                found = true;
-                // this will make sure we generate smallest results
-            }
-            if (found) {
-                continue;
-            }
-            for (int i = 0; i < s.length(); i++) {
-                if (s[i] != '(' && s[i] != ')') {
-                    continue;
-                }
-                string t = s.substr(0, i) + s.substr(i + 1);
-                // cout << t << endl;
-                if (visited.insert(t).second) {
-                    // if t already tested we have to skip it
-                    // use set to track it
-                    q.push(t);
-                }
-            }
-        }
-
-        return res;
-    }
-};
 class Solution {
 
   private:
@@ -116,10 +61,44 @@ class Solution {
   public:
     vector<string> removeInvalidParentheses(string s) {
         vector<string> res;
-        set<string> visited;
+        unordered_map<string, bool> visited;
         // sanity check
         if (s.length() < 0) {
             return res;
+        }
+        queue<string> q;
+        q.push(s);
+        int maxLen = 0;
+        bool found = false;
+        while (q.size() > 0) {
+            s = q.front();
+            q.pop();
+            if (check(s)) {
+                res.push_back(s);
+                found = true;
+                if (maxLen > s.length()) {
+                    break;
+                }
+                maxLen = max(maxLen, (int)s.length());
+                // this will make sure we generate smallest results
+            }
+
+            if (found) {
+                continue;
+            }
+            for (int i = 0; i < s.length(); i++) {
+                if (s[i] != '(' && s[i] != ')') {
+                    continue;
+                }
+                string t = s.substr(0, i) + s.substr(i + 1);
+                // cout << t << endl;
+                if (visited.find(t) == visited.end()) {
+                    // if t already tested we have to skip it
+                    // use set to track it
+                    visited[t] = true;
+                    q.push(t);
+                }
+            }
         }
 
         return res;

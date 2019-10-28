@@ -63,12 +63,12 @@
  */
 
 // @lc code=start
-class Solution {
-   public:
+class Solution1 {
+  public:
     bool isValid(string s) {
         map<char, char> map = {{'(', ')'}, {'[', ']'}, {'{', '}'}};
         vector<char> stack;
-        for (auto& c : s) {
+        for (auto &c : s) {
             if (map.find(c) != map.end()) {
                 stack.push_back(c);
             } else {
@@ -82,4 +82,5 @@ class Solution {
         return stack.size() == 0;
     }
 };
+
 // @lc code=end
