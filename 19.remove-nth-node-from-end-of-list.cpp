@@ -45,10 +45,10 @@
  * };
  */
 class Solution {
-   public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
+  public:
+    ListNode *removeNthFromEnd(ListNode *head, int n) {
         auto fast = head, slow = head;
-        ListNode** prev = &head;
+        ListNode **prev = &head;
         if (!head) {
             return nullptr;
         } else {
@@ -58,8 +58,7 @@ class Solution {
 
             for (; fast;) {
                 fast = fast->next;
-                prev = &(slow->next);
-                slow = slow->next;
+                prev = &((*prev)->next);
             }
             *prev = (*prev)->next;
         }
