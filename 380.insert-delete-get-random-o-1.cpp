@@ -56,25 +56,40 @@
 
 // @lc code=start
 class RandomizedSet {
-public:
+  private:
+    unordered_set<int> set;
+
+  public:
     /** Initialize your data structure here. */
     RandomizedSet() {
-        
+        srand(time(nullptr));
     }
-    
+
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     bool insert(int val) {
-        
+        return set.insert(val).second;
     }
-    
+
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     bool remove(int val) {
-        
+        auto pair = set.insert(val);
+        bool exist = pair.second; // false -> exist
+        if (!exist) {
+            set.erase(pair.first);
+            return true;
+        } else {
+            set.erase(pair.first);
+            return false;
+        }
     }
-    
+
     /** Get a random element from the set. */
     int getRandom() {
-        
+        int randomNumber = rand() % set.size();
+        unordered_set<int>::iterator it = set.begin();
+        advance(it, randomNumber);
+
+        return *it;
     }
 };
 
@@ -86,4 +101,3 @@ public:
  * int param_3 = obj->getRandom();
  */
 // @lc code=end
-
