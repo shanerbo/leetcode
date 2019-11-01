@@ -93,7 +93,12 @@ class Solution {
         if (N == 0) {
             return cells;
         }
-        for (int i = 0; i < (N - 1) % 14 + 1; ++i) {
+        N = N % 14;
+        if (N == 0) {
+            N = 14;
+        }
+
+        for (int i = 0; i < N; ++i) {
             vector<int> res(8);
             for (int j = 0; j < 8; ++j) {
                 if (j == 0 || j == 7) {
