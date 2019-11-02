@@ -80,4 +80,26 @@ class Solution {
         return gcdString;
     }
 };
+class Solution1 {
+  public:
+    string gcdOfStrings(string str1, string str2) {
+        if (str2.length() == 0) {
+            return "";
+        }
+        if (str1.length() < str2.length()) {
+            swap(str1, str2);
+        }
+        if (str1.substr(0, str2.length()) == str2) {
+            string reminder = str1.substr(str2.length());
+            if (reminder.length() == 0) {
+                return str2;
+            } else {
+                return gcdOfStrings(reminder, str2);
+            }
+
+        } else {
+            return "";
+        }
+    }
+};
 // @lc code=end
