@@ -83,7 +83,7 @@
  */
 
 // @lc code=start
-class Solution {
+class Solution1 {
   public:
     vector<int> prisonAfterNDays(vector<int> &cells, int N) {
         // 00 -> 01 vacant -> occupied
@@ -106,6 +106,31 @@ class Solution {
                 } else {
                     res[j] = cells[j - 1] + cells[j + 1] == 0 || cells[j - 1] + cells[j + 1] == 2 ? 1 : 0;
                 }
+            }
+            cells = res;
+        }
+        return cells;
+    }
+};
+class Solution {
+  public:
+    vector<int> prisonAfterNDays(vector<int> &cells, int N) {
+        if (N == 0) {
+            return cells;
+        }
+        vector<int> res(8), patternTracker;
+        for (int cycle = 0; N-- > 0; cycle++) {
+            for (int j = 0; j < 8; ++j) {
+                if (j == 0 || j == 7) {
+                    res[j] = 0;
+                } else {
+                    res[j] = cells[j - 1] + cells[j + 1] == 0 || cells[j - 1] + cells[j + 1] == 2 ? 1 : 0;
+                }
+            }
+            if (cycle == 0) {
+                patternTracker = res;
+            } else if (patternTracker == res) {
+                N %= cycle;
             }
             cells = res;
         }
