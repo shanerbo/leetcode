@@ -1,5 +1,4 @@
-# leetcode
+# Leetcode
 ### Prepare for fulltime interview
-#### learned new data structure:
-#### priority_queue, list, heap, map
-##### summary:
+#### TODO:
+##### Classify each question into different folder
