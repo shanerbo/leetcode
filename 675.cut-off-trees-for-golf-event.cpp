@@ -119,29 +119,28 @@ class Solution {
         }
         return res;
     }
-
     int bfs(vector<vector<int>> &forest, vector<int> &loc) {
+        int m = forest.size(), n = forest[0].size();
         int startX = loc[0], startY = loc[1], targetX = loc[2], targetY = loc[3];
         if (startX == targetX && startY == targetY) {
             return 0;
         }
 
-        queue<vector<int>> q;
+        queue<pair<int, int>> q;
         q.push({startX, startY});
-        vector<vector<int>> visited(forest.size(), vector<int>(forest[0].size(), 0));
+        vector<vector<int>> visited(m, vector<int>(n, 0));
         visited[startX][startY] = 1;
         int step = 0;
         while (!q.empty()) {
             step++;
             int size = q.size();
             for (int i = 0; i < size; ++i) {
-                vector<int> cur = q.front();
+                int x = q.front().first, y = q.front().second;
                 q.pop();
-                int x = cur[0], y = cur[1];
                 for (int j = 0; j < 4; ++j) {
                     int newX = x + dir[j][0];
                     int newY = y + dir[j][1];
-                    if (newX >= 0 && newX < forest.size() && newY >= 0 && newY < forest[0].size() && forest[newX][newY] > 0 && visited[newX][newY] == 0) {
+                    if (newX >= 0 && newX < m && newY >= 0 && newY < n && forest[newX][newY] > 0 && visited[newX][newY] == 0) {
                         if (newX == targetX && newY == targetY) {
                             return step;
                         }
