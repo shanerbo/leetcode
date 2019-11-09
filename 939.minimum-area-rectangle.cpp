@@ -52,22 +52,31 @@
  */
 
 // @lc code=start
+static int my_speed_up = []() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    return 0;
+}();
 class Solution {
   public:
     int minAreaRect(vector<vector<int>> &points) {
         if (points.empty()) {
             return 0;
         }
-        unordered_map<int, set<int>> coord;
+        unordered_map<int, unordered_set<int>> coord;
         for (auto const &p : points) {
             coord[p[0]].insert(p[1]);
         }
         int res = INT_MAX;
         for (int i = 0; i < points.size(); i++) {
             int x = points[i][0], y = points[i][1];
+            if (coord[x].size() < 2) {
+                continue;
+            }
             for (int j = 1; j < points.size(); j++) {
                 int w = points[j][0], z = points[j][1];
-                if (x == w || y == z)
+                if (x == w || y == z || coord[w].size() < 2)
                     continue;
                 if (coord[x].count(z) && coord[w].count(y)) {
                     res = min(abs(w - x) * abs(z - y), res);
