@@ -69,55 +69,39 @@
 
 // @lc code=start
 class Solution {
-  private:
-    bool validString(string a, string b) {
-        int i = 0, j = a.length() - 1, diff = 0;
-        while (i <= j) {
-            if (a[i] != b[i]) {
-                diff++;
-            }
-            if (i != j && a[j] != b[j]) {
-                diff++;
-            }
-            if (diff > 1) {
-                return false;
-            }
-            i++;
-            j--;
-        }
-        return diff == 1;
-    }
-
   public:
     int ladderLength(string beginWord, string endWord, vector<string> &wordList) {
         unordered_set<string> dict(wordList.begin(), wordList.end());
-        deque<string> toSearch; // start with beginWord
-        toSearch.push_back(beginWord);
-        int ret = 1;
-        while (toSearch.size() > 0) {
-            int size = toSearch.size();
-            for (int i = 0; i < size; ++i) {
-                string word = toSearch.front();
-                toSearch.pop_front();
+        for (auto const &w : wordList) {
+            dict.insert(w);
+        }
+
+        queue<string> q;
+        q.push(beginWord);
+        int res = 0;
+        if (dict.find(endWord) == dict.end()) {
+            return res;
+        }
+        while (q.size() > 0) {
+            int size = q.size();
+            res++;
+            for (int k = 0; k < size; ++k) {
+                string word = q.front();
+                q.pop();
                 if (word == endWord) {
-                    return ret;
-                } else {
-                    dict.erase(word); // remove this word from dictionary
-                    int wordLen = word.length();
-                    string tempWord;
-                    for (int j = 0; j < wordLen; ++j) {
-                        tempWord = word;
-                        for (char c = 'a'; c <= 'z'; c++) {
-                            tempWord[j] = c;
-                            // cout << tempWord << endl;
-                            if (dict.find(tempWord) != dict.end()) {
-                                toSearch.push_back(tempWord);
-                            }
+                    return res;
+                }
+                for (int i = 0; i < word.length(); ++i) {
+                    string tmpWord = word;
+                    for (int j = 0; j <= 26; ++j) {
+                        tmpWord[i] = j + 'a';
+                        if (dict.count(tmpWord) > 0) {
+                            q.push(tmpWord);
+                            dict.erase(tmpWord);
                         }
                     }
                 }
             }
-            ret++;
         }
         return 0;
     }
