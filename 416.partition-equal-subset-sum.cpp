@@ -76,19 +76,32 @@ class Solution {
                 return false;
             }
         }
-        vector<vector<int>> dp(nums.size() + 1, vector<int>(target + 1, 0));
-        dp[0][0] = 1;
-        for (int i = 1; i <= nums.size(); ++i) {
-            for (int j = 1; j <= target; ++j) {
-                dp[i][j] = dp[i - 1][j];
-                if (j >= nums[i - 1]) {
-                    dp[i][j] = dp[i - 1][j - nums[i - 1]] == 0 ? dp[i][j] == 0 ? 0 : 1 : 1;
-                    if (j == target && dp[i][j] == 1) {
+        // vector<vector<int>> dp(nums.size() + 1, vector<int>(target + 1, 0));
+        // dp[0][0] = 1;
+        // for (int i = 1; i <= nums.size(); ++i) {
+        //     for (int j = 1; j <= target; ++j) {
+        //         dp[i][j] = dp[i - 1][j];
+        //         if (j >= nums[i - 1]) {
+        //             dp[i][j] = dp[i - 1][j - nums[i - 1]] == 0 ? dp[i][j] == 0 ? 0 : 1 : 1;
+        //             if (j == target && dp[i][j] == 1) {
+        //                 return true;
+        //             }
+        //         }
+        //     }
+        // }
+        // return dp[nums.size()][target] == 1;
+        vector<int> dp(target + 1, 0);
+        dp[0] = 1;
+        for (auto const &num : nums) {
+            for (int j = target; j > 0; j--) {
+                if (j >= num) {
+                    dp[j] = dp[j] == 0 ? dp[j - num] == 0 ? 0 : 1 : 1;
+                    if (dp[j] == 1 && j == target) {
                         return true;
                     }
                 }
             }
         }
-        return dp[nums.size()][target] == 1;
+        return dp[target];
     }
 };
