@@ -69,74 +69,9 @@
 
 // @lc code=start
 class Solution {
-   private:
-    vector<vector<string>> ret;
-    int len = INT_MAX;
-    string target;
-    unordered_map<string, int> map;
-    void dfs(int currLen, vector<string> path, string& currWord,
-             vector<string>& wordList) {
-        if (currWord.compare(target) == 0) {
-            if (currLen <= len) {
-                len = currLen;
-                ret.push_back(path);
-            }
-            return;
-        }
-
-        for (int i = 0; i < wordList.size(); i++) {
-            if (validStr(wordList[i])) {
-                if (isLadder(currWord, wordList[i])) {
-                    map[currWord] = 1;
-                    path.push_back(wordList[i]);
-                    dfs(currLen + 1, path, wordList[i], wordList);
-                    map[currWord] = 0;
-                    path.pop_back();
-                } else {
-                    continue;
-                }
-            } else {
-                continue;
-            }
-        }
-    }
-    bool validStr(string str) { return map[str] != 1; }
-    bool isLadder(string str1, string str2) {
-        int diff = 0;
-        for (int i = 0; i < str1.size(); i++) {
-            if (diff > 1) {
-                return false;
-            }
-            if (str1[i] != str2[i]) {
-                diff++;
-            }
-        }
-        return diff == 1;
-    }
-
-   public:
+  public:
     vector<vector<string>> findLadders(string beginWord, string endWord,
-                                       vector<string>& wordList) {
-        target = endWord;
-        if (wordList.size() == 0) {
-            return ret;
+                                       vector<string> &wordList) {
         }
-
-        for (auto const& str : wordList) {
-            map[str] = 0;
-        }
-        map[beginWord] = 0;
-        vector<string> path;
-        path.push_back(beginWord);
-        dfs(1, path, beginWord, wordList);
-        for (auto it = ret.begin(); it != ret.end();) {
-            if ((*it).size() > len) {
-                it = ret.erase(it);
-            } else {
-                it++;
-            }
-        }
-        return ret;
-    }
 };
 // @lc code=end
