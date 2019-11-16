@@ -60,15 +60,55 @@
 class LFUCache {
   private:
     int Capacity;
-    deque<pair<int, int>> dq;
-    unordered_map < int,
-        public : LFUCache(int capacity) {
+    int minFreq;
+    unordered_map<int, pair<int, int>> keyValueMap;   // key => <value, freq>
+    unordered_map<int, list<int>> freqMap;            // freq => list of keys
+    unordered_map<int, list<int>::iterator> keyItMap; // key => it
+  public:
+    LFUCache(int capacity) : Capacity(capacity) {
     }
 
     int get(int key) {
+        if (keyValueMap.find(key) != keyValueMap.end()) {
+            // key does not exist in the table
+            return -1;
+        }
+        int value = keyValueMap[key].first;
+        int freq = keyValueMap[key].second;
+        auto it = keyItMap[key];
+        freqMap[freq].erase(it);
+        // if current key has the lowest frequency, and there is no other key has
+        // has same freq number,then we have to increment freq by 1
+        if (freq == minFreq && freqMap[freq].empty()) {
+            minFreq++;
+        }
+        freqMap[++freq].push_back(key);
+        list<int>::iterator newIt = --freqMap[freq].end();
+        keyItMap[key] = newIt;
+        return value;
     }
 
     void put(int key, int value) {
+        if (keyValueMap.size() < Capacity) {
+            if (get(key) == -1) {
+                return;
+            }
+            keyValueMap[key].first = value;
+            return;
+            // update key value pair
+        }
+        // we need to evict a page
+        int keyToBeMoved = freqMap[minFreq].front();
+        freqMap[minFreq].pop_front();
+        auto it = keyItMap[keyToBeMoved];
+        keyValueMap.erase(keyToBeMoved);
+        keyItMap[key].erase(it);
+
+        // insert new key
+        minFreq = 1;
+        keyValueMap[key] = make_pair(value, 1);
+        freqMap[1].push_back(key);
+        keyItMap[1] = --freqMap[1].end();
     }
 };
 
