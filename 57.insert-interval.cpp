@@ -43,10 +43,7 @@
 class Solution {
   public:
     vector<vector<int>> insert(vector<vector<int>> &intervals, vector<int> &newInterval) {
-        if (newInterval.empty() && intervals.empty()) {
-            return intervals;
-        }
-        if (newInterval.empty()) {
+        if (newInterval.empty() && intervals.empty() || newInterval.empty()) {
             return intervals;
         }
         if (intervals.empty()) {
