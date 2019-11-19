@@ -90,16 +90,16 @@ class LFUCache {
     }
 
     void put(int key, int value) {
-        if(Capacity<=0){
+        if (Capacity <= 0) {
             return;
         }
-            if (get(key) != -1) {
-                keyValueMap[key].first = value;
-                return;
-            }
-            
-            // update key value pair
-        if(keyValueMap.size()>=Capacity){
+        if (get(key) != -1) {
+            keyValueMap[key].first = value;
+            return;
+        }
+
+        // update key value pair
+        if (keyValueMap.size() >= Capacity) {
             // we need to evict a page
             int keyToBeMoved = freqMap[minFreq].front();
 
