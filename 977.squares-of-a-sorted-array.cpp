@@ -51,15 +51,19 @@
 class Solution {
   public:
     vector<int> sortedSquares(vector<int> &A) {
-        vector<int> res;
+        vector<int> res(A.size());
         if (A.empty()) {
             return res;
         }
-        for (int i = 0; i < A.size(); ++i) {
-            A[i] = A[i] * A[i];
+        int l = 0, r = A.size() - 1;
+        for (int i = A.size() - 1; i >= 0 && l <= r; --i) {
+            if (abs(A[l]) >= abs(A[r])) {
+                res[i] = A[l] * A[l++];
+            } else {
+                res[i] = A[r] * A[r--];
+            }
         }
-        sort(A.begin(), A.end());
-        return A;
+        return res;
     }
 };
 // @lc code=end
