@@ -55,9 +55,9 @@ class Solution {
     int m, n;
     vector<pair<int, int>> dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     struct Trie {
-        vector<Trie *> next;
+        Trie *next[26];
         bool word;
-        Trie() : next(26, nullptr), word(false){};
+        Trie() : word(false) { fill_n(this->next, 26, nullptr); };
         void insert(string w) {
             auto head = this;
             for (auto const &c : w) {
