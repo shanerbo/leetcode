@@ -58,19 +58,16 @@ public:
         queue.push(root);
         res++;
         while(!queue.empty()){
-            int size = queue.size();
-            for(int i = 0; i < size; ++i){
-                auto tmp = queue.front();queue.pop();
-                if(tmp->left){
-                    res++;
-                    queue.push(tmp->left);
-                }else{
-                    return res;
-                }
-                if(tmp->right){
-                    res++;
-                    queue.push(tmp->right);
-                }
+            auto tmp = queue.front();queue.pop();
+            if(tmp->left){
+                res++;
+                queue.push(tmp->left);
+            }else{
+                return res;
+            }
+            if(tmp->right){
+                res++;
+                queue.push(tmp->right);
             }
         }
         return res;

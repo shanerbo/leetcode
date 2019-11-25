@@ -93,14 +93,12 @@ public:
             if(c == '#' && !ts.empty()){
                 ts.pop();
             }else if(c != '#'){
-            ts.push(c);
+                ts.push(c);
             }
         }
         while(!ss.empty()){
-
                 s+=ss.top();
                 ss.pop();
-            
         }
         while(!ts.empty()){
                 t+=ts.top();
