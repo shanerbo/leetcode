@@ -59,14 +59,10 @@ class Solution {
         if (s.length() == 0) {
             return res;
         }
-        int sig = 0;
+        long long sig = 1;
         for (int i = s.length() - 1; i >= 0; --i) {
-            if (sig == 0) {
-                res += (s[i] - 'A' + 1);
-            } else {
-                res += (s[i] - 'A' + 1) * pow(26, sig);
-            }
-            sig++;
+            res += (s[i] - 'A' + 1) * sig;
+            sig *= 26;
         }
         return res;
     }
