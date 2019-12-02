@@ -64,7 +64,7 @@ class Solution {
             res += (s[i] - 'A' + 1) * sig;
             sig *= 26;
         }
-        return res;
+        return static_cast<int>(res);
     }
 };
 // @lc code=end
