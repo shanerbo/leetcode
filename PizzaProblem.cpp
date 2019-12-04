@@ -142,6 +142,13 @@ int main() {
     coupons = convert(buy, free);
     res = pizzaProblem->miniCost(pizzas, coupons);
     cout << "Correct answer: 311, our answer: " << res << endl;
+    // test 12
+    pizzas = {48, 39, 41, 18, 39, 37, 42, 38, 31, 26, 39, 37, 31, 43, 43, 19, 25, 30, 49, 12, 22, 47, 46, 50, 40};
+    buy = {15, 20, 18, 18, 12, 13, 15, 19, 10, 20, 13, 20, 19, 19, 20, 17, 10, 11, 14, 16, 13, 14, 11, 10, 19, 18, 11, 14, 12, 20};
+    free = {8, 6, 7, 9, 8, 6, 7, 6, 5, 9, 6, 8, 6, 5, 10, 7, 8, 10, 10, 9, 10, 8, 8, 10, 10, 9, 6, 7, 9, 7};
+    coupons = convert(buy, free);
+    res = pizzaProblem->miniCost(pizzas, coupons);
+    cout << "Correct answer: 545, our answer: " << res << endl;
 
     // test 12
     pizzas = {38, 16, 36, 12, 10, 38, 44, 14, 13, 32, 15, 19, 16, 48, 39, 41, 18, 39, 37, 42, 38, 31, 26, 39, 37};
