@@ -8,7 +8,7 @@
 3. Amazon (3 OA's) 6/10, Failed the third OA, Work simulations were hard than I though.
 4. SAP (Three Position, one for each) 3/10, interviewers were ignorant and cocky, will not recommend any of my friends.
 5. Fortinet (One for One) 6/10, hard interview.
-#### Practice three questino per day, keep my technique skill fresh.
-#### TODO:
+#### Practice three questions per day, keep my technique skill fresh.
+##### TODO:
 ##### Classify each question into different folder
 ##### Finish top 200 question under ~~Amazon tag~~
