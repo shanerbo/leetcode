@@ -1,6 +1,6 @@
 {
     "editor.formatOnSave": true,
-    "workbench.colorTheme": "Material Theme Darker",
+    "workbench.colorTheme": "One Dark Pro",
     "editor.wordWrap": "on",
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM , IndentWidth: 4, ColumnLimit: 0}",
     "files.associations": {
