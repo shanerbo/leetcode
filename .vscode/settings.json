@@ -1,10 +1,6 @@
 {
     "editor.formatOnSave": true,
-<<<<<<< Updated upstream
-    "workbench.colorTheme": "One Dark Pro",
-=======
     "workbench.colorTheme": "Solarized Dark",
->>>>>>> Stashed changes
     "editor.wordWrap": "on",
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: LLVM , IndentWidth: 4, ColumnLimit: 0}",
     "files.associations": {
