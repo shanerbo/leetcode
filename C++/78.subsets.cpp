@@ -53,23 +53,26 @@ public:
   }
 };
 class Solution {
-  void dfs(vector<int> &nums, int position, vector<int> &sub,
-           vector<vector<int>> &subs) {
-    subs.push_back(sub);
-    for (int i = position; i < nums.size(); i++) {
-      /* code */
-      sub.push_back(nums[i]);
-      dfs(nums, i + 1, sub, subs);
-      sub.pop_back();
-    }
-  }
-
 public:
   vector<vector<int>> subsets(vector<int> &nums) {
-    vector<int> sub;
-    vector<vector<int>> subs;
-    dfs(nums, 0, sub, subs);
-    return subs;
+    vector<vector<int>> res;
+    if (nums.empty()) {
+      return res;
+    }
+    vector<int> sub = {};
+    helper(nums, 0, sub, res);
+    return res;
+  }
+
+private:
+  void helper(vector<int> &nums, int position, vector<int> &sub,
+              vector<vector<int>> &res) {
+    res.push(sub);
+    for (size_t i = position; i < nums.size(); i++) {
+      sub.push_back(nums[i]);
+      helper(nums, i + 1, sub, res);
+      sub.pop_back();
+    }
   }
 };
 // @lc code=end
