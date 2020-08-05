@@ -9,6 +9,7 @@
         "algorithm": "cpp",
         "vector": "cpp",
         "iosfwd": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "limits": "cpp"
     }
 }

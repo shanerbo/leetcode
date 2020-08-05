@@ -33,16 +33,18 @@
 
 // @lc code=start
 class Solution {
-   public:
-    int maxSubArray(vector<int>& nums) {
-        if (nums.size() == 0) return 0;
-        int lastResult = nums[0];
-        int sum = lastResult;
-        for (int i = 1; i < nums.size(); ++i) {
-            lastResult = max(lastResult + nums[i], nums[i]);
-            sum = max(sum, lastResult);
-        }
-        return sum;
+public:
+  int maxSubArray(vector<int> &nums) {
+    if (nums.empty()) {
+      return 0;
     }
+    int lastResult = nums[0];
+    int res = lastResult;
+    for (int i = 1; i < nums.size(); ++i) {
+      lastResult = max(nums[i], lastResult + nums[i]);
+      res = max(res, lastResult);
+    }
+    return res;
+  }
 };
 // @lc code=end
