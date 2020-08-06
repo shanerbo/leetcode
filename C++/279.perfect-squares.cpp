@@ -49,48 +49,31 @@ using namespace std;
 class Solution {
 public:
   int numSquares(int n) {
-    static unordered_map<int, int> map_;
+    vector<int> dp(n + 1, INT_MAX);
 
-    if (map_.find(n) != map_.end()) {
-      return map_[n];
-    }
-
-    if (n == 0) {
-      return 0;
-    }
-
-    vector<int> squareSet;
+    dp[0] = 0;
     for (size_t i = 1; i * i <= n; i++) {
-      squareSet.push_back(i * i);
+      dp[i] = 1;
     }
 
-    if (squareSet.back() == n) {
-      return 1;
-    }
+    queue<int> q;
+    q.push(0);
+    while (!q.empty()) {
+      int curr = q.front();
+      q.pop();
 
-    unordered_set<int> q;
-    q.insert(n);
-    size_t res = 0;
-    while (q.size() > 0) {
-      res++;
-      unordered_set<int> newQ;
-      for (auto const &i : q) {
-        for (auto const &s : squareSet) {
-          //   cout << n << ' ' << s << endl;
-          if (i == s) {
-            return res;
-          } else if (s > i) {
-            // square is larger than n, no need for further iteration
-            // e.g 16 > 9
-            break;
+      auto max = n - curr;
+      for (size_t i = 1; i * i <= max; i++) {
+        if (dp[i * i + curr] == INT_MAX || curr == 0) {
+          dp[i * i + curr] = dp[curr] + 1;
+          if (i * i + curr == n) {
+            return dp[n];
           }
-          newQ.insert(i - s);
+          q.push(i * i + curr);
         }
       }
-      q = newQ;
     }
-    map_[n] = res;
-    return res;
+    return dp[n];
   }
 };
 // @lc code=end
