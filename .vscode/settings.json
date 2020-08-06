@@ -10,6 +10,8 @@
         "vector": "cpp",
         "iosfwd": "cpp",
         "iterator": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "deque": "cpp",
+        "list": "cpp"
     }
 }
