@@ -67,22 +67,20 @@ public:
   bool hasPathSum(TreeNode *root, int sum) { return helper(root, sum, 0); }
 
   bool helper(TreeNode *root, int sum, int preSum) {
-    if (root && root->val + preSum == sum && !root->left && !root->right) {
+    if (!root) {
+      return false;
+    }
+
+    if (root->val + preSum == sum && !root->left && !root->right) {
       return true;
-    } else if ((root && root->val + preSum != sum && !root->left &&
-                !root->right) ||
+    } else if ((root->val + preSum != sum && !root->left && !root->right) ||
                !root) {
       return false;
     }
-    bool left = false;
-    bool right = false;
-    if (root->left) {
-      left = helper(root->left, sum, preSum + root->val);
-    }
-    if (root->right) {
-      right = helper(root->right, sum, preSum + root->val);
-    }
-    return left || right;
+
+    return helper(root->left, sum, preSum + root->val) ||
+           helper(root->right, sum, preSum + root->val);
+    ;
   }
 };
 // @lc code=end
