@@ -73,14 +73,7 @@ private:
     }
     int m = (e - s) / 2;
     m += s;
-    if (nums[s] <= nums[m] && nums[m + 1] <= nums[e]) {
-      if (nums[s] < nums[m + 1]) {
-        return helper(nums, s, m);
-      } else {
-        return helper(nums, m + 1, e);
-      }
-
-    } else if (nums[m + 1] > nums[e]) {
+    if (nums[m] > nums[e]) {
       return helper(nums, m + 1, e);
     } else {
       return helper(nums, s, m);
