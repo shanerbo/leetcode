@@ -54,7 +54,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-  int findMin(vector<int> &nums) {
+  int findMin1(vector<int> &nums) {
     int s = 0, e = nums.size() - 1;
     if (nums.empty()) {
       return 0;
@@ -64,6 +64,14 @@ public:
     }
 
     return helper(nums, s, e);
+  }
+  int findMin(vector<int> &nums) {
+    for (int i = 0; i < nums.size() - 1; i++) {
+      if (nums[i] > nums[i + 1]) {
+        return nums[i + 1];
+      }
+    }
+    return nums[0];
   }
 
 private:
