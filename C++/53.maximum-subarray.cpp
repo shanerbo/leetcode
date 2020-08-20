@@ -48,12 +48,8 @@ using namespace std;
 class Solution {
 public:
   int maxSubArray(vector<int> &nums) {
-    int res = INT_MIN;
-    if (nums.empty()) {
-      return res;
-    }
     int lastResult = nums[0];
-    res = lastResult;
+    int res = lastResult;
     for (size_t i = 1; i < nums.size(); ++i) {
       auto n = nums[i];
       lastResult = max(n, lastResult + n);
