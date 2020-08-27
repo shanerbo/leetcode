@@ -66,7 +66,24 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-  bool canJump(vector<int> &nums) { return helper(nums, 0); }
+  bool canJump(vector<int> &nums) {
+    if (nums.empty()) {
+      return false;
+    }
+    if (nums.size() == 1) {
+      return true;
+    }
+
+    int step = nums[0];
+    for (auto const &n : nums) {
+      step--;
+      if (step < 0) {
+        return false;
+      }
+      step = max(step, n);
+    }
+    return true;
+  }
   bool canJump1(vector<int> &nums) { return helper(nums, 0); }
   bool helper(vector<int> &nums, int pos) {
     int maxStep = nums[pos];
