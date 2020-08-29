@@ -70,6 +70,7 @@ public:
     if (nums.empty()) {
       return false;
     }
+
     if (nums.size() == 1) {
       return true;
     }
@@ -84,6 +85,7 @@ public:
     }
     return true;
   }
+
   bool canJump1(vector<int> &nums) { return helper(nums, 0); }
   bool helper(vector<int> &nums, int pos) {
     int maxStep = nums[pos];

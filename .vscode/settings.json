@@ -12,6 +12,7 @@
         "iterator": "cpp",
         "limits": "cpp",
         "deque": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "queue": "cpp"
     }
 }
