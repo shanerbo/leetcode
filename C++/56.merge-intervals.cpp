@@ -58,8 +58,7 @@ public:
       return res;
     }
 
-    auto mySort = [](vector<int> a, vector<int> b) { return a[0] < b[0]; };
-    sort(intervals.begin(), intervals.end(), mySort);
+    sort(intervals.begin(), intervals.end());
     res.push_back(intervals[0]);
     for (int i = 1; i < intervals.size(); ++i) {
       auto in = intervals[i];
