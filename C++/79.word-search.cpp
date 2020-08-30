@@ -81,18 +81,17 @@ public:
     if (pos >= word.size()) {
       return true;
     }
-    char target = word[pos];
     for (auto const &dir : dirs) {
-      if (i + dir[0] < board.size() && j + dir[1] < board[0].size() &&
-          i + dir[0] >= 0 && j + dir[1] >= 0 &&
-          board[i + dir[0]][j + dir[1]] != '.' &&
-          board[i + dir[0]][j + dir[1]] == word[pos]) {
-        auto temp = board[i + dir[0]][j + dir[1]];
-        board[i + dir[0]][j + dir[1]] = '.';
-        if (helper(board, word, i + dir[0], j + dir[1], pos + 1)) {
+      auto newI = i + dir[0], newJ = j + dir[1];
+      if (newI < board.size() && newJ < board[0].size() && newI >= 0 &&
+          newJ >= 0 && board[newI][newJ] != '.' &&
+          board[newI][newJ] == word[pos]) {
+        auto temp = board[newI][newJ];
+        board[newI][newJ] = '.';
+        if (helper(board, word, newI, newJ, pos + 1)) {
           return true;
         }
-        board[i + dir[0]][j + dir[1]] = temp;
+        board[newI][newJ] = temp;
       }
     }
     return false;
