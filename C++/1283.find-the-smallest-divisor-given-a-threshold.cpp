@@ -59,6 +59,7 @@
  */
 #include <algorithm>
 #include <bitset>
+#include <cmath>
 #include <iostream>
 #include <list>
 #include <map>
