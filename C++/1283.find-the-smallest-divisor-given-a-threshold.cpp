@@ -87,7 +87,7 @@ public:
         sum += ceil((1.0 * n) / m);
         if (sum > threshold) {
           lower = m + 1;
-          continue;
+          break;
         }
       }
       if (sum > threshold) {
