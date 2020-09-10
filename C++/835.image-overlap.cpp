@@ -63,46 +63,34 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-  int countOverlap(vector<vector<int>> &a, vector<vector<int>> &b, int shiftX,
-                   int shiftY) {
+  int countOverlapR(vector<vector<int>> &a, vector<vector<int>> &b, int shiftX,
+                    int shiftY) {
     if (shiftX >= a.size() || shiftY >= a.size()) {
       return 0;
     }
-    int max = 0;
-    for (size_t i = 0; i + shiftX < a.size(); i++) {
+    int max1 = 0;
+    int max2 = 0;
+    for (int i = 0; i < a.size() && i + shiftX < a.size(); ++i) {
+      for (int j = a.size() - 1; j >= 0 && j + -1 * shiftY >= 0; j--) {
+        if (a[i][j] == b[i + shiftX][j + -1 * shiftY] && a[i][j] == 1) {
+          max1++;
+        }
+      }
       for (size_t j = 0; j + shiftY < a.size(); j++) {
         if (a[i][j] == b[i + shiftX][j + shiftY] && a[i][j] == 1) {
-          max++;
+          max2++;
         }
       }
     }
-    return max;
-  }
-
-  int countOverlapR(vector<vector<int>> &a, vector<vector<int>> &b, int shiftX,
-                    int shiftY) {
-    if (abs(shiftX) >= a.size() || abs(shiftY) >= a.size()) {
-      return 0;
-    }
-    int max = 0;
-    for (int i = 0; i < a.size() && i + shiftX < a.size(); ++i) {
-      for (int j = a.size() - 1; j >= 0 && j + shiftY >= 0; j--) {
-        if (a[i][j] == b[i + shiftX][j + shiftY] && a[i][j] == 1) {
-          max++;
-        }
-      }
-    }
-    return max;
+    return std::max(max1, max2);
   }
 
   int largestOverlap(vector<vector<int>> &A, vector<vector<int>> &B) {
     int max = 0;
     for (int i = 0; i < A.size(); i++) {
       for (size_t j = 0; j < A.size(); j++) {
-        max = std::max(max, countOverlap(A, B, i, j));
-        max = std::max(max, countOverlap(B, A, i, j));
-        max = std::max(max, countOverlapR(B, A, i, -1 * j));
-        max = std::max(max, countOverlapR(A, B, i, -1 * j));
+        max = std::max(max, countOverlapR(B, A, i, j));
+        max = std::max(max, countOverlapR(A, B, i, j));
       }
     }
     return max;
