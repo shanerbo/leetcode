@@ -13,6 +13,8 @@
         "limits": "cpp",
         "deque": "cpp",
         "list": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "bitset": "cpp",
+        "set": "cpp"
     }
 }
