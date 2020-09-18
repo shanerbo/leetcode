@@ -15,6 +15,7 @@
         "list": "cpp",
         "queue": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ostream": "cpp"
     }
 }
