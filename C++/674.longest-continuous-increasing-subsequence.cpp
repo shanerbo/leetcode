@@ -66,9 +66,8 @@ public:
     }
     int m = 1;
     int res = 1;
-    for (size_t i = 1; i <= nums.size(); i++) {
-      int j = i - 1;
-      if (j > 0 && nums[j - 1] < nums[j]) {
+    for (size_t i = 1; i < nums.size(); i++) {
+      if (nums[i - 1] < nums[i]) {
         m++;
         res = max(res, m);
       } else {
