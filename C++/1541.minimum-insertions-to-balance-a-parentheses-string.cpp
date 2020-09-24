@@ -117,7 +117,7 @@ public:
         }
       } else {
         // c == '('
-        if (closeNeed % 2 > 0) {
+        if (closeNeed % 2 != 0) {
           // missing ')'
           res++;
           closeNeed--;
