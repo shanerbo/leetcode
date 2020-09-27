@@ -104,12 +104,11 @@ public:
     for (auto const &c : S) {
       if (c == '(') {
         closeNeed++;
-
       } else {
         closeNeed--;
         if (closeNeed < 0) {
           res++;
-          closeNeed = 0;
+          closeNeed += 1;
         }
       }
     }
