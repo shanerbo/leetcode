@@ -60,9 +60,6 @@ using namespace std;
 class Solution {
 public:
   ListNode *deleteDuplicates(ListNode *head) {
-    if (!head) {
-      return nullptr;
-    }
     ListNode **prev = &head;
     ListNode *newHead = head;
     while (newHead) {
