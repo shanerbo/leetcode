@@ -57,25 +57,47 @@ using namespace std;
 class Solution {
 public:
   double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
-    vector<int> arr;
-    int i = 0, j = 0;
-    int sizeI = nums1.size(), sizeJ = nums2.size();
-    while (i < sizeI && j < sizeJ) {
-      if (nums1[i] < nums2[j]) {
-        arr.push_back(nums1[i++]);
+
+    int i = 0;
+    int j = 0;
+    int count = 0;
+    int target = (nums1.size() + nums2.size());
+    int prev = 0;
+
+    while (true) {
+
+      int n = 0;
+
+      int x = INT_MAX;
+      int y = INT_MAX;
+
+      if (i < nums1.size())
+        x = nums1[i];
+      if (j < nums2.size())
+        y = nums2[j];
+
+      if (x == INT_MAX && y == INT_MAX)
+        break;
+
+      if (x < y) {
+        n = x;
+        i++;
       } else {
-        arr.push_back(nums2[j++]);
+        n = y;
+        j++;
       }
+
+      if (count == target / 2) {
+        if (target % 2 != 0) {
+          return n;
+        } else {
+          return (double)(prev + n) / 2;
+        }
+      }
+      prev = n;
+      count++;
     }
-    while (i < sizeI) {
-      arr.push_back(nums1[i++]);
-    }
-    while (j < sizeJ) {
-      arr.push_back(nums2[j++]);
-    }
-    return arr.size() % 2 == 0
-               ? (arr[arr.size() / 2.0] + arr[arr.size() / 2 - 1]) / 2.0
-               : arr[arr.size() / 2.0];
+    return 0;
   }
 };
 // @lc code=end
