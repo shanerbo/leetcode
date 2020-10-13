@@ -50,30 +50,32 @@ using namespace std;
 class Solution {
 public:
   string longestPalindrome(string s) {
-    if (s.empty()) {
-      return s;
+    string res;
+    int maxLength = 0;
+    for (int i = 0; i < s.size(); ++i) {
+      int left = i - 1;
+      int right = i + 1;
+      char currChar = s[i];
+      while (right < s.size() && s[right] == currChar) {
+        right++;
+      }
+      while (left >= 0 && right < s.size()) {
+        if (s[left] == s[right]) {
+          left--;
+          right++;
+        } else {
+          break;
+        }
+      }
+      left++;
+      right--;
+      if (right - left + 1 >= maxLength) {
+        maxLength = right - left + 1;
+        std::cout << left << ' ' << right << std::endl;
+        res = s.substr(left, maxLength);
+      }
     }
-
-    int start = 0, length = 0;
-    for (size_t i = 0; i < s.size(); ++i) {
-      int currEnd = i + 1, currStart = i - 1;
-      int currLength = 1;
-      while (currEnd < s.size() && s[i] == s[currEnd]) {
-        currLength++;
-        currEnd++;
-      }
-      while (currStart >= 0 && currEnd < s.size() &&
-             s[currStart] == s[currEnd]) {
-        currLength += 2;
-        currStart--;
-        currEnd++;
-      }
-      if (currLength >= length) {
-        start = currStart + 1;
-        length = currLength;
-      }
-    }
-    return s.substr(start, length);
+    return res;
   }
 };
 // @lc code=end
