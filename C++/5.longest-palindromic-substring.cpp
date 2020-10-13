@@ -71,7 +71,6 @@ public:
       right--;
       if (right - left + 1 >= maxLength) {
         maxLength = right - left + 1;
-        std::cout << left << ' ' << right << std::endl;
         res = s.substr(left, maxLength);
       }
     }
