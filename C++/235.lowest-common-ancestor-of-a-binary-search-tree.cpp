@@ -86,25 +86,14 @@ public:
     if (!root) {
       return nullptr;
     }
-    if ((root->val > p->val && root->val < q->val) ||
-        (root->val < p->val && root->val > q->val)) {
-      return root;
-    }
 
-    if (root == p) {
-      return p;
+    if (root->val > p->val && root->val > q->val) {
+      return lowestCommonAncestor(root->left, p, q);
     }
-    if (root == q) {
-      return q;
+    if (root->val < p->val && root->val < q->val) {
+      return lowestCommonAncestor(root->right, p, q);
     }
-    auto left = lowestCommonAncestor(root->left, p, q);
-    auto right = lowestCommonAncestor(root->right, p, q);
-
-    if (left && right) {
-      return root;
-    }
-
-    return left ? left : right;
+    return root;
   }
 };
 // @lc code=end
