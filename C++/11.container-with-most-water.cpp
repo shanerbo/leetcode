@@ -55,21 +55,21 @@ using namespace std;
 class Solution {
 public:
   int maxArea(vector<int> &height) {
-    if (height.empty()) {
-      return 0;
-    }
+    ios_base::sync_with_stdio(false);
+    int left = 0, right = height.size() - 1, heightest = INT_MIN;
     int res = 0;
-    int l = 0, r = height.size() - 1;
-    while (l < r) {
-      int lMax = height[l], rMax = height[r];
-      res = max(res, (r - l) * min(lMax, rMax));
-      if (lMax < rMax) {
-        l++;
+    while (left < right) {
+      if (height[left] > height[right]) {
+        heightest = height[right];
+        res = max((right - left) * heightest, res);
+        right--;
       } else {
-        r--;
+        heightest = height[left];
+        res = max((right - left) * heightest, res);
+        left++;
       }
     }
+
     return res;
   }
-};
-// @lc code=end
+}; // @lc code=end
