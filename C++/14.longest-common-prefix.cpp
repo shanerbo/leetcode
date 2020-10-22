@@ -61,18 +61,19 @@ public:
       return res;
     }
     auto prefix = strs[0];
-    for (size_t i = 1; i < strs.size(); ++i) {
-      string newPrefix;
-      for (size_t j = 0; j < strs[i].size() && j < prefix.size(); j++) {
+    for (size_t j = 0; j < prefix.size(); j++) {
+      for (size_t i = 0; i < strs.size(); i++) {
+        if (j >= strs[i].size()) {
+          return res;
+        }
         if (strs[i][j] != prefix[j]) {
-          break;
-        } else {
-          newPrefix += prefix[j];
+          return res;
         }
       }
-      prefix = newPrefix;
+      res += prefix[j];
     }
-    return prefix;
+
+    return res;
   }
 };
 // @lc code=end

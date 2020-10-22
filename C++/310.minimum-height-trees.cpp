@@ -108,6 +108,7 @@ public:
     for (auto const &e : edges) {
       map[e[0]].push_back(e[1]);
     }
+    return {};
   }
 };
 // @lc code=end
