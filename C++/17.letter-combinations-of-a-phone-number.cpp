@@ -57,21 +57,24 @@ public:
       return res;
     }
 
-    vector<string> map = {"",    "",    "abc",  "def", "ghi",
-                          "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    static string map[10] = {"",    "",    "abc",  "def", "ghi",
+                             "jkl", "mno", "pqrs", "tuv", "wxyz"};
     helper(digits, 0, "", map, res);
     return res;
   }
-  void helper(string &digits, int pos, string curr, vector<string> &map,
+  void helper(string &digits, int pos, string curr, string map[],
               vector<string> &res) {
     if (curr.size() == digits.size()) {
       res.push_back(curr);
       return;
     }
-
-    for (auto const &c : map[digits[pos] - '0']) {
-      cout << c;
-      helper(digits, pos + 1, curr + c, map, res);
+    for (; pos < digits.size(); ++pos) {
+      auto temp = curr;
+      for (auto const &c : map[digits[pos] - '0']) {
+        curr += c;
+        helper(digits, pos + 1, curr, map, res);
+        curr = temp;
+      }
     }
   }
 };
