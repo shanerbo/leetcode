@@ -48,6 +48,11 @@
 #include <vector>
 
 using namespace std;
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
+};
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -57,45 +62,26 @@ using namespace std;
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
 class Solution {
 public:
-  ListNode *removeNthFromEnd1(ListNode *head, int n) {
-    if (!head) {
-      return nullptr;
-    }
-    auto hare = head;
-    auto prev = &head;
-    for (size_t i = 0; i < n; i++) {
-      hare = hare->next;
-    }
-    while (hare) {
-      hare = hare->next;
-      prev = &((*prev)->next);
-    }
-    *prev = (*prev)->next;
-    return head;
-  }
-
   ListNode *removeNthFromEnd(ListNode *head, int n) {
     if (!head) {
-      return nullptr;
+      return head;
     }
-    auto hare = head, tortoise = head;
+    auto prev = head, curr = head;
     for (size_t i = 0; i < n; i++) {
-      hare = hare->next;
+      curr = curr->next;
     }
-    ListNode *prev = nullptr;
-    for (; hare;) {
-      prev = tortoise;
-      tortoise = tortoise->next;
-      hare = hare->next;
+    if (!curr) {
+      head = head->next;
+      return head;
     }
-    if (!prev) {
-      return head->next;
-    } else {
-      prev->next = tortoise->next;
+    while (curr and curr->next) {
+      prev = prev->next;
+      curr = curr->next;
     }
-
+    prev->next = prev->next->next;
     return head;
   }
 };
