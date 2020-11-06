@@ -15,13 +15,13 @@
  *
  * Merge two sorted linked lists and return it as a new list. The new list
  * should be made by splicing together the nodes of the first two lists.
- * 
+ *
  * Example:
- * 
+ *
  * Input: 1->2->4, 1->3->4
  * Output: 1->1->2->3->4->4
- * 
- * 
+ *
+ *
  */
 #include <algorithm>
 #include <bitset>
@@ -29,6 +29,7 @@
 #include <iostream>
 #include <list>
 #include <map>
+#include <memory>
 #include <queue>
 #include <set>
 #include <stack>
@@ -36,16 +37,17 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+
 struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(NULL) {}
 };
 struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 using namespace std;
 // @lc code=start
@@ -59,9 +61,30 @@ using namespace std;
  */
 class Solution {
 public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        
+  ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
+    auto res = new ListNode(0);
+    auto tmp = res;
+    while (l1 and l2) {
+      if (l1->val < l2->val) {
+        res->next = l1;
+        l1 = l1->next;
+      } else {
+        res->next = l2;
+        l2 = l2->next;
+      }
+      res = res->next;
     }
+    while (l1) {
+      res->next = l1;
+      res = res->next;
+      l1 = l1->next;
+    }
+    while (l2) {
+      res->next = l2;
+      res = res->next;
+      l2 = l2->next;
+    }
+    return tmp->next;
+  }
 };
 // @lc code=end
-
