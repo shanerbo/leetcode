@@ -33,13 +33,9 @@ using namespace std;
 class TicTacToe {
 public:
   /** Initialize your data structure here. */
-  TicTacToe(int n) {
-    v = vector(n, vector(n, '0'));
-    h = vector(n, vector(n, '0'));
-    d = vector(n, '0');
-    ad = vector(n, '0');
-    size = n;
-  }
+  TicTacToe(int n)
+      : v(n, vector<char>(n, '0')), h(n, vector<char>(n, '0')), d(n, '0'),
+        ad(n, '0'), size(n) {}
 
   /** Player {player} makes a move at ({row}, {col}).
       @param row The row of the board.
