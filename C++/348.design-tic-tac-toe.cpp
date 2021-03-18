@@ -89,8 +89,8 @@ public:
   }
 
 private:
-  vector<vector<char>> h; // horizontal
   vector<vector<char>> v; // vertical
+  vector<vector<char>> h; // horizontal
   vector<char> d;         // diagnal
   vector<char> ad;        // anti-diagnal
   size_t size;
