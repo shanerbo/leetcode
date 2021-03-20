@@ -85,13 +85,61 @@ using namespace std;
 // @lc code=start
 class LFUCache {
 private:
+  unordered_map<int, pair<int, int>> key_value_freq_map;
+  unordered_map<int, vector<int>> freq_key_map;
+  unordered_map<int, vector<int>::iterator> key_it_map;
+  int lowest_freq;
+  int size;
+
 public:
-  LFUCache(int capacity)
-      : key_repeat_time(), repeat_time_key_value(), cap(capacity) {}
+  LFUCache(int capacity) : lowest_freq(0), size(capacity) {}
 
-  int get(int key) { return -1; }
+  int get(int key) {
+    auto it = key_value_freq_map.find(key);
+    if (it == key_value_freq_map.end()) {
+      // no such key
+      return -1;
+    }
+    auto value_freq = key_value_freq_map[key];
+    int freq = value_freq.second;
+    int value = value_freq.first;
+    auto key_it = key_it_map[key];
+    auto key_list = freq_key_map[freq];
+    freq_key_map[freq].erase(key_it);
+    if (freq_key_map[freq].empty()) {
+      lowest_freq++;
+    }
+    freq++;
+    freq_key_map[freq].push_back(key);
+    key_value_freq_map[key] = {value, freq};
+    key_it_map[key] = --freq_key_map[freq].end();
+    return value;
+  }
 
-  void put(int key, int value) {}
+  void put(int key, int value) {
+    if (size <= 0) {
+      return;
+    }
+    if (get(key) != -1) { // update
+      key_value_freq_map[key].first = value;
+      return;
+    }
+    // insert
+    if (key_value_freq_map.size() >= size) {
+      // evict
+      auto low_key_it = freq_key_map[lowest_freq].begin();
+      int low_key = *low_key_it;
+      key_value_freq_map.erase(low_key);
+      key_it_map.erase(low_key);
+      freq_key_map[lowest_freq].erase(freq_key_map[lowest_freq].begin());
+      size--;
+    }
+    key_value_freq_map[key] = {value, 1};
+    freq_key_map[1].push_back(key);
+    key_it_map[key] = --freq_key_map[1].end();
+    lowest_freq = 1;
+    size++;
+  }
 };
 
 /**
