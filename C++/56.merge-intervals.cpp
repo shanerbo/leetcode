@@ -53,18 +53,26 @@ using namespace std;
 class Solution {
 public:
   vector<vector<int>> merge(vector<vector<int>> &intervals) {
-    vector<vector<int>> res;
     if (intervals.empty()) {
-      return res;
+      return {};
     }
-
+#define START 0
+#define END 1
     sort(intervals.begin(), intervals.end());
+    vector<vector<int>> res;
     res.push_back(intervals[0]);
     for (int i = 1; i < intervals.size(); ++i) {
       auto in = intervals[i];
-      if (res.back()[1] >= in[0]) {
-        res.back()[1] = max(res.back()[1], in[1]);
-      } else {
+      int start = in[START], end = in[END];
+      bool merged = false;
+      for (int j = 0; j < res.size(); ++j) {
+        if (res[j][1] >= start) {
+          res[j] = {res[j][0], max(end, res[j][1])};
+          merged = true;
+          break;
+        }
+      }
+      if (!merged) {
         res.push_back(in);
       }
     }
