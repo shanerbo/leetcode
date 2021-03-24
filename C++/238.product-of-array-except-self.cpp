@@ -59,6 +59,22 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-  vector<int> productExceptSelf(vector<int> &nums) {}
+  vector<int> productExceptSelf(vector<int> &nums) {
+    vector<int> res(nums.size(), 1);
+    vector<int> r_res(nums.size(), 1);
+    if (nums.empty()) {
+      return res;
+    }
+
+    for (int i = 1; i < nums.size(); ++i) {
+      res[i] = nums[i - 1] * res[i - 1];
+      r_res[nums.size() - i - 1] =
+          nums[nums.size() - i] * r_res[nums.size() - i];
+    }
+    for (int i = 0; i < nums.size(); ++i) {
+      res[i] *= r_res[i];
+    }
+    return res;
+  }
 };
 // @lc code=end
