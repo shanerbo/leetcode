@@ -59,7 +59,7 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-  vector<int> productExceptSelf(vector<int> &nums) {
+  vector<int> productExceptSelf1(vector<int> &nums) {
     vector<int> res(nums.size(), 1);
     vector<int> r_res(nums.size(), 1);
     if (nums.empty()) {
@@ -73,6 +73,24 @@ public:
     }
     for (int i = 0; i < nums.size(); ++i) {
       res[i] *= r_res[i];
+    }
+    return res;
+  }
+
+  vector<int> productExceptSelf(vector<int> &nums) {
+    vector<int> res(nums.size(), 1);
+    if (nums.empty()) {
+      return res;
+    }
+
+    for (int i = 1; i < nums.size(); ++i) {
+      res[i] = nums[i - 1] * res[i - 1];
+    }
+
+    int prev_prod = 1;
+    for (int i = nums.size() - 1; i >= 0; --i) {
+      res[i] *= prev_prod;
+      prev_prod *= nums[i];
     }
     return res;
   }
