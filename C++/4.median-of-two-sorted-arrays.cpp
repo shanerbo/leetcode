@@ -2,102 +2,41 @@
  * @lc app=leetcode id=4 lang=cpp
  *
  * [4] Median of Two Sorted Arrays
- *
- * https://leetcode.com/problems/median-of-two-sorted-arrays/description/
- *
- * algorithms
- * Hard (27.51%)
- * Likes:    5240
- * Dislikes: 763
- * Total Accepted:    528.7K
- * Total Submissions: 1.9M
- * Testcase Example:  '[1,3]\n[2]'
- *
- * There are two sorted arrays nums1 and nums2 of size m and n respectively.
- *
- * Find the median of the two sorted arrays. The overall run time complexity
- * should be O(log (m+n)).
- *
- * You may assume nums1 and nums2 cannot be both empty.
- *
- * Example 1:
- *
- *
- * nums1 = [1, 3]
- * nums2 = [2]
- *
- * The median is 2.0
- *
- *
- * Example 2:
- *
- *
- * nums1 = [1, 2]
- * nums2 = [3, 4]
- *
- * The median is (2 + 3)/2 = 2.5
- *
- *
  */
-#include <algorithm>
-#include <bitset>
-#include <iostream>
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
 
-using namespace std;
 // @lc code=start
+#include <algorithm>
+#include <vector>
+using namespace std;
 class Solution {
-public:
-  double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2) {
-
-    int i = 0;
-    int j = 0;
-    int count = 0;
-    int target = (nums1.size() + nums2.size());
-    int prev = 0;
-
-    while (true) {
-
-      int n = 0;
-
-      int x = INT_MAX;
-      int y = INT_MAX;
-
-      if (i < nums1.size())
-        x = nums1[i];
-      if (j < nums2.size())
-        y = nums2[j];
-
-      if (x == INT_MAX && y == INT_MAX)
-        break;
-
-      if (x < y) {
-        n = x;
-        i++;
-      } else {
-        n = y;
-        j++;
-      }
-
-      if (count == target / 2) {
-        if (target % 2 != 0) {
-          return n;
-        } else {
-          return (double)(prev + n) / 2;
-        }
-      }
-      prev = n;
-      count++;
+ public:
+  double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+    int l = 0, r = nums1.size(), m = nums1.size(), n = nums2.size();
+    if (m > n) {
+      return findMedianSortedArrays(nums2, nums1);
     }
-    return 0;
+    while (l <= r) {
+      int mid = (l + r) / 2;
+      int mid_2 = (m + n) / 2 - mid;
+      int left_max_1 = mid == 0 ? INT_MIN : nums1[mid - 1];
+      int right_min_1 = mid == m ? INT_MAX : nums1[mid];
+
+      int left_max_2 = mid_2 == 0 ? INT_MIN : nums2[mid_2 - 1];
+      int right_min_2 = mid_2 == n ? INT_MAX : nums2[mid_2];
+      if (left_max_1 <= right_min_2 and left_max_2 <= right_min_1) {
+        if (((m + n) & 1) == 1) {
+          return min(right_min_1, right_min_2);
+        } else {
+          return (max(left_max_2, left_max_1) + min(right_min_1, right_min_2)) /
+                 2.0;
+        }
+      } else if (left_max_2 > right_min_1) {
+        l = mid + 1;
+      } else {
+        r = mid - 1;
+      }
+    }
+    return 0.0;
   }
 };
 // @lc code=end

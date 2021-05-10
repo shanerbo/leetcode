@@ -2,100 +2,49 @@
  * @lc app=leetcode id=15 lang=cpp
  *
  * [15] 3Sum
- *
- * https://leetcode.com/problems/3sum/description/
- *
- * algorithms
- * Medium (24.85%)
- * Likes:    4602
- * Dislikes: 532
- * Total Accepted:    657.7K
- * Total Submissions: 2.6M
- * Testcase Example:  '[-1,0,1,2,-1,-4]'
- *
- * Given an array nums of n integers, are there elements a, b, c in nums such
- * that a + b + c = 0? Find all unique triplets in the array which gives the
- * sum of zero.
- *
- * Note:
- *
- * The solution set must not contain duplicate triplets.
- *
- * Example:
- *
- *
- * Given array nums = [-1, 0, 1, 2, -1, -4],
- *
- * A solution set is:
- * [
- * ⁠ [-1, 0, 1],
- * ⁠ [-1, -1, 2]
- * ]
- *
- *
  */
-#include <algorithm>
-#include <bitset>
-#include <cmath>
-#include <iostream>
-#include <list>
-#include <map>
-#include <queue>
-#include <set>
-#include <stack>
-#include <string>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode(int x) : val(x), next(NULL) {}
-};
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-using namespace std;
+
 // @lc code=start
+#include <algorithm>
+#include <vector>
+
+using namespace std;
 class Solution {
 public:
   vector<vector<int>> threeSum(vector<int> &nums) {
     sort(nums.begin(), nums.end());
+    if (nums.empty()) {
+      return {};
+    }
     vector<vector<int>> res;
-    for (size_t i = 0; i < nums.size(); i++) {
-      int start = i + 1, end = nums.size() - 1;
-      if (nums[i] > 0) {
-        return res;
-      }
-      int target = -nums[i];
-      while (start < end) {
-        if (nums[start] + nums[end] == target) {
-          vector<int> tuple = {nums[i], nums[start], nums[end]};
-          res.push_back(tuple);
-          while (start < nums.size() - 1 && nums[start] == nums[start + 1]) {
-            start++;
+    // [-2, -2, -2, -1, 0, 0, 0, 0, 0, 1, 1, 1, 1]
+    for (int curr = 0; curr < nums.size(); ++curr) {
+      int l = curr + 1, r = nums.size() - 1;
+      int target = 0 - nums[curr];
+      while (l < r) {
+        if (nums[l] + nums[r] == target) {
+          res.push_back({nums[l], nums[curr], nums[r]});
+          while (l + 1 < curr and nums[l] == nums[l + 1]) {
+            l++;
           }
-          while (end > start + 1 && nums[end] == nums[end - 1]) {
-            end--;
+          while (r - 1 > curr and nums[r] == nums[r - 1]) {
+            r--;
           }
-
-          start++;
-          end--;
-        } else if (nums[start] + nums[end] < target) {
-          start++;
+          l++;
+          r--;
+        } else if (nums[l] + nums[r] > target) {
+          r--;
         } else {
-          end--;
+          l++;
         }
       }
-
-      while (i < nums.size() - 1 && nums[i] == nums[i + 1]) {
-        i++;
+      // skip duplicated nums
+      while (curr + 1 < nums.size() and nums[curr] == nums[curr + 1]) {
+        curr++;
       }
     }
     return res;
   }
 };
+
 // @lc code=end
