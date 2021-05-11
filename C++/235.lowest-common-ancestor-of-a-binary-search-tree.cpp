@@ -65,9 +65,15 @@
 #include <unordered_set>
 #include <vector>
 struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode(int x) : val(x), next(NULL) {}
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 using namespace std;
 // @lc code=start
@@ -81,19 +87,29 @@ using namespace std;
  * };
  */
 class Solution {
-public:
-  TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
-    if (!root) {
-      return nullptr;
-    }
+  public:
+    TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q) {
+        if (!root) {
+            return nullptr;
+        }
+        if (root == p) {
+            return p;
+        }
+        if (root == q) {
+            return q;
+        }
+        auto l = lowestCommonAncestor(root->left, p, q);
+        auto r = lowestCommonAncestor(root->right, p, q);
+        if (l && r) {
+            return root;
+        }
+        if (l && !r) {
+            return l;
+        } else {
+            return r;
+        }
 
-    if (root->val > p->val && root->val > q->val) {
-      return lowestCommonAncestor(root->left, p, q);
+        return root;
     }
-    if (root->val < p->val && root->val < q->val) {
-      return lowestCommonAncestor(root->right, p, q);
-    }
-    return root;
-  }
 };
 // @lc code=end
