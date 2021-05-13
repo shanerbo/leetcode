@@ -6,22 +6,24 @@
 
 // @lc code=start
 #include <algorithm>
+#include <queue>
 #include <vector>
 using namespace std;
 class Solution {
   public:
-    bool canAttendMeetings(vector<vector<int>> &in) {
-        if (in.empty()) {
-            return true;
+    int minMeetingRooms(vector<vector<int>> &ins) {
+        if (ins.empty()) {
+            return 0;
         }
-
-        sort(in.begin(), in.end());
-        for (size_t i = 0; i < in.size() - 1; ++i) {
-            if (in[i][1] > in[i + 1][0]) {
-                return false;
+        sort(ins.begin(), ins.end());
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (auto &i : ins) {
+            if (!pq.empty() and pq.top() <= i[0]) {
+                pq.pop();
             }
+            pq.push(i[1]);
         }
-        return true;
+        return pq.size();
     }
 };
 // @lc code=end
