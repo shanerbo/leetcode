@@ -44,7 +44,7 @@ class MedianFinder {
     }
 
   private:
-    priority_queue<double, vector<double>, std::less<double>> max_heap;
+    priority_queue<double, vector<double>> max_heap;
     priority_queue<double, vector<double>, std::greater<double>> min_heap;
     size_t size;
 };
